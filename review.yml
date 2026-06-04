@@ -1,0 +1,58 @@
+---
+name: Ghent University
+description: Ghent University public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/ghent/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 3
+    summary: >-
+      Ghent University has a solid but decentralized public API footprint driven
+      almost entirely by the Ghent University Library. The Academic Bibliography
+      (biblio.ugent.be) is the strongest asset: a documented REST search API plus
+      live OAI-PMH, SRU and unAPI endpoints and daily ODbL data dumps, all
+      verified returning HTTP 200 with valid responses. The library catalog
+      (lib.ugent.be) documents OAI-PMH, SRU, IIIF and OpenSearch interfaces. The
+      community Zeus WPI Hydra Resto API is live and well documented but is a
+      student-org project, not an official service. No centralized institutional
+      developer portal or gateway with sign-up/keys was found. All URLs below
+      were probed live; nothing was fabricated. lib.ugent.be/en/info/open and
+      lib.ugent.be/en/info/exports returned 404 and were excluded as endpoints.
+    endpoints:
+      - url: https://biblio.ugent.be/doc/api
+        status: 200
+        note: Academic Bibliography API/download documentation (REST, OAI, SRU, unAPI, dumps).
+      - url: https://biblio.ugent.be/publication?q=dna&format=json
+        status: 200
+        note: REST search API returns JSON.
+      - url: https://biblio.ugent.be/oai?verb=Identify
+        status: 200
+        note: OAI-PMH 2.0 endpoint, valid XML Identify response.
+      - url: https://biblio.ugent.be/sru?operation=explain
+        status: 200
+        note: SRU 1.1 search service live.
+      - url: https://lib.ugent.be/catalog
+        status: 200
+        note: Library catalog; per-item developer sections and OAI/SRU/IIIF/OpenSearch interfaces.
+      - url: https://hydra.ugent.be/api/2.0/resto/meta.json
+        status: 200
+        note: Zeus WPI Hydra Resto API metadata (student-restaurant locations).
+      - url: https://hydra.ugent.be/api/2.0/resto/allergens.json
+        status: 200
+        note: Hydra Resto allergen data endpoint live.
+      - url: https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md
+        status: 200
+        note: Hydra Resto API v2.0 documentation (community-maintained).
+      - url: https://github.com/ugent
+        status: 200
+        note: Official Ghent University GitHub org (contact github@ugent.be).
+      - url: https://github.com/ugent-library
+        status: 200
+        note: Ghent University Library GitHub org; biblio-backoffice, SDKs, tooling.
+      - url: https://www.ugent.be/en
+        status: 200
+        note: Official university website.
+      - url: https://lib.ugent.be/en/info/open
+        status: 404
+        note: Library open-data info page no longer resolves; excluded from catalog.

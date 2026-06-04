@@ -1,0 +1,121 @@
+---
+aid: ghent
+name: Ghent University
+description: >-
+  Ghent University (Universiteit Gent, UGent) is a major public research
+  university in Ghent, Belgium, ranked #169 in the QS World University Rankings
+  2025. Its public developer footprint centers on the Ghent University Library:
+  the Academic Bibliography (biblio.ugent.be) exposes a documented REST search
+  API plus OAI-PMH, SRU, unAPI and bulk data dumps under an ODbL license, and
+  the library catalog (lib.ugent.be) offers OAI-PMH, SRU, IIIF and OpenSearch
+  interfaces. The university maintains official GitHub organizations (ugent,
+  ugent-library), and the student computer-science group Zeus WPI publishes the
+  open Hydra Resto API for student-restaurant menu data. There is no single
+  centralized, gateway-style institutional developer portal; APIs are documented
+  per service.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/ghent/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research
+  - Library
+  - Open Data
+  - Belgium
+  - Europe
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: ghent:biblio
+    name: Ghent University Academic Bibliography API
+    description: >-
+      The Academic Bibliography (Biblio) provides programmatic access to UGent
+      research publication metadata via a REST search API (JSON/JSONP), an
+      OAI-PMH 2.0 harvesting endpoint, an SRU 1.1 search service using CQL, a
+      unAPI discovery service, and daily bulk data dumps (CSV, JSON, MODS) under
+      the Open Database License (ODbL).
+    humanURL: https://biblio.ugent.be/doc/api
+    baseURL: https://biblio.ugent.be/publication
+    tags: [ Research, Publications, Bibliography, Open Data, OAI-PMH, SRU, Library ]
+    properties:
+      - type: Documentation
+        url: https://biblio.ugent.be/doc/api
+  - aid: ghent:biblio-oai
+    name: Ghent University Academic Bibliography OAI-PMH
+    description: >-
+      OAI-PMH 2.0 metadata harvesting endpoint for the UGent Academic
+      Bibliography, supporting Identify, ListMetadataFormats and ListRecords
+      verbs for full or selective harvesting of publication records.
+    humanURL: https://biblio.ugent.be/doc/api
+    baseURL: https://biblio.ugent.be/oai
+    tags: [ OAI-PMH, Research, Publications, Metadata, Harvesting ]
+    properties:
+      - type: Documentation
+        url: https://biblio.ugent.be/doc/api
+  - aid: ghent:biblio-sru
+    name: Ghent University Academic Bibliography SRU
+    description: >-
+      SRU 1.1 search/retrieve service for the UGent Academic Bibliography using
+      Contextual Query Language (CQL), returning XML records for publication
+      searches with sorting support.
+    humanURL: https://biblio.ugent.be/doc/api
+    baseURL: https://biblio.ugent.be/sru
+    tags: [ SRU, CQL, Research, Publications, Search ]
+    properties:
+      - type: Documentation
+        url: https://biblio.ugent.be/doc/api
+  - aid: ghent:library-catalog
+    name: Ghent University Library Catalog Interfaces
+    description: >-
+      The Ghent University Library catalog (lib.ugent.be) exposes machine
+      interfaces for its collections, including OAI-PMH metadata harvesting, SRU
+      search with CQL, IIIF (Presentation API v2) for digitized images, and
+      OpenSearch for search-result feeds. Per-item pages include a developer
+      section listing available formats; metadata is published under the Open
+      Database License.
+    humanURL: https://lib.ugent.be/catalog
+    tags: [ Library, Catalog, OAI-PMH, SRU, IIIF, OpenSearch, Open Data ]
+    properties:
+      - type: Documentation
+        url: https://lib.ugent.be/catalog
+  - aid: ghent:hydra-resto
+    name: Hydra Resto API (Zeus WPI)
+    description: >-
+      Open JSON API published by Zeus WPI, the computer-science student working
+      group at Ghent University, powering the Hydra student app. The Resto API
+      (v2.0) serves UGent student-restaurant locations, daily menus, sandwiches,
+      salads and allergen information. Community-maintained, not an official
+      university service.
+    humanURL: https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md
+    baseURL: https://hydra.ugent.be/api/2.0/resto
+    tags: [ Mobile, Student, Menu, Open Data, Community ]
+    properties:
+      - type: Documentation
+        url: https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md
+      - type: GitHub
+        url: https://github.com/ZeusWPI/hydra
+common:
+  - type: Website
+    url: https://www.ugent.be/en
+  - type: GitHub
+    url: https://github.com/ugent
+  - type: SourceCode
+    url: https://github.com/ugent-library
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/ghent-university/
+  - type: Plans
+    url: plans/ghent-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/ghent-rate-limits.yml
+  - type: FinOps
+    url: finops/ghent-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
