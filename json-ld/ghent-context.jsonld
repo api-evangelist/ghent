@@ -1,0 +1,65 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "ugent": "https://www.ugent.be/vocab#",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "sameAs": "schema:sameAs",
+    "Organization": "schema:CollegeOrUniversity",
+    "CollegeOrUniversity": "schema:CollegeOrUniversity",
+    "API": "ugent:API",
+    "apis": {
+      "@id": "ugent:api",
+      "@container": "@set"
+    },
+    "humanURL": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "baseURL": {
+      "@id": "ugent:baseURL",
+      "@type": "@id"
+    },
+    "Publication": "schema:ScholarlyArticle",
+    "title": "schema:headline",
+    "abstract": "schema:abstract",
+    "author": "schema:author",
+    "year": "schema:datePublished",
+    "issn": "schema:issn",
+    "doi": "schema:identifier",
+    "Library": "schema:Library",
+    "catalog": "schema:hasPart",
+    "Menu": "schema:Menu",
+    "menuItem": "schema:hasMenuItem",
+    "allergen": "ugent:allergen"
+  },
+  "@type": "CollegeOrUniversity",
+  "name": "Ghent University",
+  "url": "https://www.ugent.be/en",
+  "description": "Ghent University (Universiteit Gent, UGent) is a major public research university in Ghent, Belgium.",
+  "sameAs": [
+    "https://github.com/ugent",
+    "https://github.com/ugent-library",
+    "https://www.linkedin.com/school/ghent-university/"
+  ],
+  "apis": [
+    {
+      "@type": "API",
+      "name": "Ghent University Academic Bibliography API",
+      "humanURL": "https://biblio.ugent.be/doc/api",
+      "baseURL": "https://biblio.ugent.be/publication"
+    },
+    {
+      "@type": "API",
+      "name": "Ghent University Library Catalog Interfaces",
+      "humanURL": "https://lib.ugent.be/catalog"
+    },
+    {
+      "@type": "API",
+      "name": "Hydra Resto API (Zeus WPI)",
+      "humanURL": "https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md",
+      "baseURL": "https://hydra.ugent.be/api/2.0/resto"
+    }
+  ]
+}
