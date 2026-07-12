@@ -100,6 +100,8 @@ apis:
       - type: GitHub
         url: https://github.com/ZeusWPI/hydra
 common:
+  - type: DomainSecurity
+    url: security/ghent-domain-security.yml
   - type: Website
     url: https://www.ugent.be/en
   - type: GitHub
