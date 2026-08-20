@@ -105,7 +105,18 @@ apis:
       university service.
     humanURL: https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md
     baseURL: https://hydra.ugent.be/api/2.0/resto
-    tags: [ Mobile, Student, Menu, Open Data, Community ]
+    tags:
+    - Mobile
+    - Students
+    - Menus
+    - Open Data
+    - Community
+    tags_raw:
+    - Mobile
+    - Student
+    - Menu
+    - Open Data
+    - Community
     properties:
       - type: Documentation
         url: https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md
