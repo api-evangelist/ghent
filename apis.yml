@@ -1,127 +1,206 @@
 ---
 aid: ghent
 name: Ghent University
+x-type: university
+x-category: Public Research University
 description: >-
-  Ghent University (Universiteit Gent, UGent) is a major public research
-  university in Ghent, Belgium, ranked #169 in the QS World University Rankings
-  2025. Its public developer footprint centers on the Ghent University Library:
-  the Academic Bibliography (biblio.ugent.be) exposes a documented REST search
-  API plus OAI-PMH, SRU, unAPI and bulk data dumps under an ODbL license, and
-  the library catalog (lib.ugent.be) offers OAI-PMH, SRU, IIIF and OpenSearch
-  interfaces. The university maintains official GitHub organizations (ugent,
-  ugent-library), and the student computer-science group Zeus WPI publishes the
-  open Hydra Resto API for student-restaurant menu data. There is no single
-  centralized, gateway-style institutional developer portal; APIs are documented
-  per service.
+  Ghent University (Universiteit Gent, UGent) is a public research university in
+  Ghent, Belgium, founded in 1817 and ranked around #169 in the QS World University
+  Rankings. Like almost every institution, it is a federation of buyers rather than
+  an API producer, and its profile is written on that basis: it operates no central
+  developer portal, no gateway and no institution-wide API programme, and most of
+  what looks like a Ghent API on first inspection belongs to a supplier. The real
+  programmable footprint is concentrated in one place - Ghent University Library.
+  The Academic Bibliography at biblio.ugent.be is genuinely the university's own: a
+  documented JSON/JSONP REST search API, fourteen export formats, a live OAI-PMH 2.0
+  endpoint identifying itself as the Ghent University Institutional Archive, an SRU
+  1.1 service over CQL with 78 documented indexes, unAPI discovery, RSS feeds and
+  daily full-dataset dumps, all under the Open Database License. The library also
+  authors and open-sources the software behind it, and three of those services carry
+  first-party OpenAPI 3.1 contracts. Beyond the library the university runs its own
+  SAML 2.0 identity provider and eight entities in the Belgian Belnet R&E Federation,
+  and hosts the student-built Hydra Resto API on a university domain. Everything else
+  is somebody else's: the library catalogue is now an Ex Libris Alma/Primo VE tenancy,
+  and Dodona, which began at Ghent, has moved to its own domain and its own pricing.
+  There is no DataCite membership. Ghent is a Crossref member in its own name.
 type: Index
 deliveryModel:
   model: saas
-  open_source: false
-  commercial: true
-  callable_host: false
-  label: Hosted service · you call their endpoint
-  confidence: medium
+  open_source: true
+  commercial: false
+  callable_host: true
+  label: Institution-operated endpoints, plus open-source software the library publishes
+  confidence: high
   source:
-  - pricing
-  generated: '2026-08-28'
-  method: derived
+  - openapi
+  - plans
+  generated: '2026-09-01'
+  method: probed
 accessModel:
   pricing: free
-  onboarding: unknown
+  onboarding: none
   trial: false
-  try_now: false
-  public: false
-  label: Free
-  confidence: medium
+  try_now: true
+  public: true
+  label: Free and open, no registration on the public surfaces
+  confidence: high
   source:
-  - plans
-  generated: '2026-07-22'
-  method: derived
+  - authentication
+  generated: '2026-09-01'
+  method: probed
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ghent.png
 url: https://raw.githubusercontent.com/api-evangelist/ghent/refs/heads/main/apis.yml
 tags:
-  - Education
-  - Higher Education
   - University
+  - Higher Education
+  - Education
   - Research
+  - Research Data
   - Library
   - Open Data
+  - Identity Federation
+  - OAI-PMH
   - Belgium
+  - Flanders
   - Europe
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 specificationVersion: '0.23'
+x-coverage:
+  state: covered
+  reason: covered
+  detail: >-
+    Ghent operates a real, documented, unauthenticated institutional surface and this
+    profile reaches it. Every endpoint claimed here was probed on 2026-09-01: the
+    bibliography search API, exports, OAI-PMH, SRU, unAPI, sitemap and feeds all
+    returned 200; the Hydra Resto API returned 200 on all nine documented paths; the
+    university's SAML IdP metadata returned 200. Three first-party OpenAPI 3.1
+    contracts were found in the Ghent University Library GitHub organization and are
+    saved here. Two claims in the previous profile did not survive probing and have
+    been corrected rather than dropped: the library catalogue's OAI-PMH, SRU, IIIF and
+    OpenSearch interfaces at lib.ugent.be now 404, because lib.ugent.be redirects to an
+    Ex Libris Primo VE deployment (institution code 32RUG_INST) which is recorded as a
+    tenant relationship; and the Hydra day-menu path takes unpadded date components,
+    where the padded form 404s. No surface was blocked, gated or unreadable. The single
+    unreachable host was apivsc.ugent.be, a VSC research-computing service provider
+    registered in the Belnet federation whose DNS does not resolve publicly.
+  evidence:
+    - { url: 'https://biblio.ugent.be/doc/api', status: 200 }
+    - { url: 'https://biblio.ugent.be/publication?q=dna&format=json', status: 200 }
+    - { url: 'https://biblio.ugent.be/oai?verb=Identify', status: 200 }
+    - { url: 'https://biblio.ugent.be/sru?version=1.1&operation=searchRetrieve&query=dna', status: 200 }
+    - { url: 'https://biblio.ugent.be/unapi', status: 200 }
+    - { url: 'https://biblio.ugent.be/siteindex.xml', status: 200 }
+    - { url: 'https://biblio.ugent.be/schema/publication.schema.latest.json', status: 200 }
+    - { url: 'https://hydra.ugent.be/api/2.0/resto/meta.json', status: 200 }
+    - { url: 'https://hydra.ugent.be/api/2.0/resto/menu/en/2026/9/1.json', status: 200 }
+    - { url: 'https://hydra.ugent.be/api/2.0/resto/menu/en/2026/09/01.json', status: 404 }
+    - { url: 'https://identity.ugent.be/simplesaml/saml2/idp/metadata.php', status: 200 }
+    - { url: 'https://federation.belnet.be/federation-metadata.xml', status: 200 }
+    - { url: 'https://lib.ugent.be/oai', status: 404 }
+    - { url: 'https://lib.ugent.be/sru', status: 404 }
+    - { url: 'https://api.crossref.org/members/9286', status: 200 }
+    - { url: 'https://api.datacite.org/clients?query=ugent', status: 200 }
+    - { url: 'https://api.ror.org/v2/organizations?query=Ghent+University', status: 200 }
+    - { url: 'https://raw.githubusercontent.com/ugent-library/people-service/main/api/v1/openapi.yaml', status: 200 }
+    - { url: 'https://raw.githubusercontent.com/ugent-library/projects-service/main/api/v1/openapi.yaml', status: 200 }
+    - { url: 'https://raw.githubusercontent.com/ugent-library/oai-service/main/api/v1/openapi.yaml', status: 200 }
 apis:
   - aid: ghent:biblio
     name: Ghent University Academic Bibliography API
+    x-operator: institution
     description: >-
-      The Academic Bibliography (Biblio) provides programmatic access to UGent
-      research publication metadata via a REST search API (JSON/JSONP), an
-      OAI-PMH 2.0 harvesting endpoint, an SRU 1.1 search service using CQL, a
-      unAPI discovery service, and daily bulk data dumps (CSV, JSON, MODS) under
-      the Open Database License (ODbL).
+      The Academic Bibliography (Biblio) is Ghent University's institutional publication
+      and dataset registry, operated by Ghent University Library on the university's own
+      host. It exposes a JSON/JSONP REST search API driven by CQL, per-record and
+      result-set exports in fourteen bibliographic formats, exports scoped to a person,
+      a group, an organizational unit, an organizational unit for one year, or a research
+      project, a unAPI 1 discovery service, RSS feeds for any CQL search, a sitemap index
+      of every record, and daily full-dataset dumps in CSV, newline-delimited JSON and
+      MODS 3.6. Metadata is published under the Open Database License. No key, no
+      registration, no rate limit is documented.
     humanURL: https://biblio.ugent.be/doc/api
-    baseURL: https://biblio.ugent.be/publication
-    tags: [ Research, Publications, Bibliography, Open Data, OAI-PMH, SRU, Library ]
+    baseURL: https://biblio.ugent.be
+    tags: [ Research, Publications, Bibliography, Open Data, Library, Research Data, CQL ]
     properties:
       - type: Documentation
         url: https://biblio.ugent.be/doc/api
+      - type: OpenAPI
+        url: openapi/ghent-biblio-openapi.yml
+      - type: JSONSchema
+        url: json-schema/ghent-biblio-publication-schema.json
+      - type: Vocabulary
+        url: vocabulary/ghent-biblio-cql-vocabulary.yml
+      - type: Examples
+        url: examples/ghent-examples.yml
+      - type: License
+        url: http://opendatacommons.org/licenses/odbl/
   - aid: ghent:biblio-oai
     name: Ghent University Academic Bibliography OAI-PMH
+    x-operator: institution
     description: >-
-      OAI-PMH 2.0 metadata harvesting endpoint for the UGent Academic
-      Bibliography, supporting Identify, ListMetadataFormats and ListRecords
-      verbs for full or selective harvesting of publication records.
+      OAI-PMH 2.0 harvesting endpoint for the Academic Bibliography. The live Identify
+      response names the repository "Ghent University Institutional Archive", declares
+      repositoryIdentifier archive.ugent.be, a persistent deletedRecord policy,
+      YYYY-MM-DDThh:mm:ssZ granularity and an adminEmail of libservice@ugent.be. This is
+      one of the surfaces universities most often outsource and Ghent runs it itself -
+      Ghent University Library even publishes the OAI server as open source.
     humanURL: https://biblio.ugent.be/doc/api
     baseURL: https://biblio.ugent.be/oai
-    tags: [ OAI-PMH, Research, Publications, Metadata, Harvesting ]
+    tags: [ OAI-PMH, Research, Publications, Metadata, Harvesting, Library ]
     properties:
       - type: Documentation
         url: https://biblio.ugent.be/doc/api
+      - type: OpenAPI
+        url: openapi/ghent-biblio-openapi.yml
+      - type: Conformance
+        url: conformance/ghent-education-standards-conformance.yml
+      - type: Examples
+        url: examples/ghent-biblio-oai-identify.xml
   - aid: ghent:biblio-sru
     name: Ghent University Academic Bibliography SRU
+    x-operator: institution
     description: >-
-      SRU 1.1 search/retrieve service for the UGent Academic Bibliography using
-      Contextual Query Language (CQL), returning XML records for publication
-      searches with sorting support.
+      SRU 1.1 search/retrieve service over the Academic Bibliography, driven by
+      Contextual Query Language. Seventy-eight indexes are documented with their
+      supported relations and sortability, from abstract and affiliation through JCR
+      impact-factor deciles to VABB approval status. The operator states the caveats
+      plainly - scan and explain are unsupported, result sets are unsupported, only the
+      default CQL context set is available.
     humanURL: https://biblio.ugent.be/doc/api
     baseURL: https://biblio.ugent.be/sru
-    tags: [ SRU, CQL, Research, Publications, Search ]
+    tags: [ SRU, CQL, Research, Publications, Search, Library ]
     properties:
       - type: Documentation
         url: https://biblio.ugent.be/doc/api
-  - aid: ghent:library-catalog
-    name: Ghent University Library Catalog Interfaces
-    description: >-
-      The Ghent University Library catalog (lib.ugent.be) exposes machine
-      interfaces for its collections, including OAI-PMH metadata harvesting, SRU
-      search with CQL, IIIF (Presentation API v2) for digitized images, and
-      OpenSearch for search-result feeds. Per-item pages include a developer
-      section listing available formats; metadata is published under the Open
-      Database License.
-    humanURL: https://lib.ugent.be/catalog
-    tags: [ Library, Catalog, OAI-PMH, SRU, IIIF, OpenSearch, Open Data ]
-    properties:
-      - type: Documentation
-        url: https://lib.ugent.be/catalog
+      - type: OpenAPI
+        url: openapi/ghent-biblio-openapi.yml
+      - type: Vocabulary
+        url: vocabulary/ghent-biblio-cql-vocabulary.yml
   - aid: ghent:hydra-resto
-    name: Hydra Resto API (Zeus WPI)
+    name: Hydra Resto API
+    x-operator: institution
     description: >-
-      Open JSON API published by Zeus WPI, the computer-science student working
-      group at Ghent University, powering the Hydra student app. The Resto API
-      (v2.0) serves UGent student-restaurant locations, daily menus, sandwiches,
-      salads and allergen information. Community-maintained, not an official
-      university service.
+      Open JSON API for Ghent University's student restaurants - locations and opening
+      hours, day menus, weekly ecological sandwiches, salad bowls, extra food and
+      allergen information - served from hydra.ugent.be, a university host. It is built
+      and maintained by Zeus WPI, the university's computer-science student working
+      group, and powers the Hydra student app; the menu data itself is scraped from
+      ugent.be and remains the university's. Version 1.0 is retired, 2.x is current, and
+      the operator documents a real forward-compatibility contract - clients must
+      tolerate new values of kind and type. Day-menu dates use unpadded components
+      (/menu/en/2026/9/1.json); the zero-padded form returns 404.
     humanURL: https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md
     baseURL: https://hydra.ugent.be/api/2.0/resto
     tags:
-    - Mobile
+    - Campus Life
     - Students
     - Menus
     - Open Data
     - Community
+    - Mobile
     tags_raw:
     - Mobile
     - Student
@@ -131,19 +210,219 @@ apis:
     properties:
       - type: Documentation
         url: https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md
-      - type: GitHub
+      - type: OpenAPI
+        url: openapi/ghent-hydra-resto-openapi.yml
+      - type: JSONSchema
+        url: json-schema/ghent-hydra-resto-schema.json
+      - type: APIReference
+        url: https://raw.githubusercontent.com/ZeusWPI/hydra/master/api-resto-02.md
+      - type: SourceCode
         url: https://github.com/ZeusWPI/hydra
+      - type: Examples
+        url: examples/ghent-hydra-resto-meta.json
+      - type: Lifecycle
+        url: lifecycle/ghent-lifecycle.yml
+  - aid: ghent:people-service
+    name: Ghent University Library People Service
+    x-operator: institution
+    description: >-
+      An OpenAPI 3.1 contract authored and open-sourced by Ghent University Library for
+      the people and organizations directory behind the Academic Bibliography. Sixteen
+      operations covering person and organization records, identifier lookup, suggest,
+      role and settings management, and an explicit set-person-orcid operation that makes
+      ORCID a first-class field. servers[] is relative (/api/v1) because the service runs
+      inside the university's own estate - no public base URL is published and none has
+      been invented here. Authentication is an X-Api-Key header.
+    humanURL: https://github.com/ugent-library/people-service
+    tags: [ Identity, People, Organizations, ORCID, Research, Library ]
+    properties:
+      - type: OpenAPI
+        url: openapi/ghent-people-service-openapi.yaml
+      - type: APIReference
+        url: https://raw.githubusercontent.com/ugent-library/people-service/main/api/v1/openapi.yaml
+      - type: SourceCode
+        url: https://github.com/ugent-library/people-service
+      - type: Authentication
+        url: authentication/ghent-authentication.yml
+      - type: Errors
+        url: errors/ghent-errors.yml
+  - aid: ghent:projects-service
+    name: Ghent University Library Projects Service
+    x-operator: institution
+    description: >-
+      An OpenAPI 3.1 contract authored and open-sourced by Ghent University Library for
+      the directory of research projects at Ghent University - add, get, delete and
+      suggest operations over project records. Deployed inside the university estate
+      behind an API key; servers[] is relative and no public host is published.
+    humanURL: https://github.com/ugent-library/projects-service
+    tags: [ Research, Projects, Library, Research Data ]
+    properties:
+      - type: OpenAPI
+        url: openapi/ghent-projects-service-openapi.yaml
+      - type: APIReference
+        url: https://raw.githubusercontent.com/ugent-library/projects-service/main/api/v1/openapi.yaml
+      - type: SourceCode
+        url: https://github.com/ugent-library/projects-service
+      - type: Errors
+        url: errors/ghent-errors.yml
+  - aid: ghent:oai-service
+    name: Ghent University Library OAI Service
+    x-operator: institution
+    description: >-
+      An OpenAPI 3.1 contract authored and open-sourced by Ghent University Library for
+      the administrative side of the OAI-PMH server that fronts the Academic Bibliography
+      - adding metadata formats, sets, items and records, and deleting records. This is
+      the write half of the harvesting surface at biblio.ugent.be/oai. servers[] is
+      relative; the deployment is internal and the contract declares no securityScheme.
+    humanURL: https://github.com/ugent-library/oai-service
+    tags: [ OAI-PMH, Metadata, Harvesting, Library ]
+    properties:
+      - type: OpenAPI
+        url: openapi/ghent-oai-service-openapi.yaml
+      - type: APIReference
+        url: https://raw.githubusercontent.com/ugent-library/oai-service/main/api/v1/openapi.yaml
+      - type: SourceCode
+        url: https://github.com/ugent-library/oai-service
+      - type: Conformance
+        url: conformance/ghent-education-standards-conformance.yml
+  - aid: ghent:saml-idp
+    name: Ghent University SAML 2.0 Identity Provider
+    x-operator: federation
+    description: >-
+      Ghent University's own SAML 2.0 identity provider, operated by the university's ICT
+      directorate. The signed metadata document is publicly readable and carries entityID
+      https://identity.ugent.be/simplesaml/saml2/idp/metadata.php on a certificate issued
+      to O=Universiteit Gent, OU=Directie ICT, CN=identity.ugent.be, with the Shibboleth
+      metadata extension namespace declared. Ghent is a member of the Belnet R&E
+      Federation, the Belgian national identity federation, where eight ugent.be entities
+      appear - this IdP plus seven service providers including apivsc.ugent.be (Flemish
+      Supercomputer Centre), sso.irc.ugent.be, naos.ugent.be and login.psb.ugent.be. A
+      federation is shared by definition; the IdP behind it is the institution's.
+    humanURL: https://federation.belnet.be/
+    baseURL: https://identity.ugent.be/simplesaml/saml2/idp/metadata.php
+    tags: [ Identity Federation, SAML, Shibboleth, Single Sign On, Belnet ]
+    properties:
+      - type: IdentityFederation
+        url: https://identity.ugent.be/simplesaml/saml2/idp/metadata.php
+      - type: Documentation
+        url: https://federation.belnet.be/
+      - type: Conformance
+        url: conformance/ghent-education-standards-conformance.yml
+      - type: Examples
+        url: examples/ghent-saml-idp-metadata.xml
+  - aid: ghent:library-catalog
+    name: Ghent University Library catalogue (Ex Libris Alma/Primo VE tenancy)
+    x-operator: tenant
+    description: >-
+      lib.ugent.be redirects to libcatalog.ugent.be, an Ex Libris Primo VE discovery layer
+      running under institution code 32RUG_INST and resolving through
+      libugent.primo.exlibrisgroup.com. The catalogue is Ghent's - the collections, the
+      holdings, the institution code - but the contract is Ex Libris's and is not saved
+      here. This entry also records a correction: the OAI-PMH, SRU, IIIF and OpenSearch
+      interfaces the previous profile credited to lib.ugent.be were re-probed on
+      2026-09-01 and return 404. They belonged to the library's earlier self-built
+      catalogue and did not survive the move to Primo VE. Ghent University Library
+      continues to publish its own Ex Libris Alma client and SDK as open source.
+    humanURL: https://lib.ugent.be/catalog
+    tags: [ Library, Catalog, Discovery, Ex Libris, Primo, Alma, Tenant ]
+    properties:
+      - type: LibraryCatalog
+        url: https://lib.ugent.be/catalog
+      - type: SourceCode
+        url: https://github.com/ugent-library/alma-go
+  - aid: ghent:dodona
+    name: Dodona
+    x-operator: tenant
+    description: >-
+      Dodona is the automated programming-practice platform that originated at Ghent
+      University and is still used in its computer-science teaching; Ghent registered it
+      as a service provider in the Belnet R&E Federation under
+      https://dodona.ugent.be/users/saml/metadata. It is recorded as a tenant
+      relationship, not a Ghent surface, because dodona.ugent.be now 301-redirects to
+      dodona.be, which is operated on its own domain with its own pricing behind
+      Cloudflare. Its JSON API (any path with a .json suffix) and its LTI content-selection
+      endpoint are Dodona's, and no Dodona contract is saved under Ghent.
+    humanURL: https://dodona.be/
+    tags: [ Education Technology, Learning Platform, LTI, Tenant, Spin-out ]
+    properties:
+      - type: AITooling
+        url: https://dodona.be/
+      - type: Documentation
+        url: https://docs.dodona.be/en/
+      - type: SourceCode
+        url: https://github.com/dodona-edu
+  - aid: ghent:crossref
+    name: Crossref membership
+    x-operator: registry
+    description: >-
+      Ghent University is a Crossref member in its own name - member id 9286, DOI prefix
+      10.21825, registered in Ghent, Belgium, with 28,489 DOIs deposited (960 current,
+      27,529 backfile) as of 2026-09-01. This is a fact about the institution, recorded as
+      a membership. Crossref's own API contract is not saved here.
+    humanURL: https://www.crossref.org/
+    baseURL: https://api.crossref.org/members/9286
+    tags: [ Crossref, DOI, Registry, Membership, Research ]
+    properties:
+      - type: Registry
+        url: https://api.crossref.org/members/9286
+      - type: Conformance
+        url: conformance/ghent-education-standards-conformance.yml
+  - aid: ghent:ror
+    name: ROR registration
+    x-operator: registry
+    description: >-
+      Ghent University is registered in the Research Organization Registry as
+      https://ror.org/00cv9y106, distinct from Ghent University Hospital
+      (https://ror.org/00xmkp704) and HOGENT (https://ror.org/00rs45z86), both of which
+      are separate organizations frequently conflated with it. Recorded as a registration,
+      not as an API of Ghent's.
+    humanURL: https://ror.org/00cv9y106
+    baseURL: https://api.ror.org/v2/organizations/00cv9y106
+    tags: [ ROR, Registry, Identifiers, Research ]
+    properties:
+      - type: Registry
+        url: https://ror.org/00cv9y106
 common:
-  - type: DomainSecurity
-    url: security/ghent-domain-security.yml
   - type: Website
     url: https://www.ugent.be/en
+  - type: Documentation
+    url: https://biblio.ugent.be/doc/api
+  - type: APIReference
+    url: https://biblio.ugent.be/doc/api
+  - type: ResearchRepository
+    url: https://biblio.ugent.be
+  - type: LibraryCatalog
+    url: https://lib.ugent.be/catalog
+  - type: IdentityFederation
+    url: https://identity.ugent.be/simplesaml/saml2/idp/metadata.php
+  - type: OpenData
+    url: https://biblio.ugent.be/doc/api
   - type: GitHub
     url: https://github.com/ugent
+  - type: GitHubOrganization
+    url: https://github.com/ugent-library
   - type: SourceCode
     url: https://github.com/ugent-library
+  - type: TermsOfService
+    url: https://www.ugent.be/en/disclaimer
+  - type: PrivacyPolicy
+    url: https://www.ugent.be/en/ghentuniv/privacy
   - type: LinkedIn
     url: https://www.linkedin.com/school/ghent-university/
+  - type: Conformance
+    url: conformance/ghent-education-standards-conformance.yml
+  - type: Authentication
+    url: authentication/ghent-authentication.yml
+  - type: Errors
+    url: errors/ghent-errors.yml
+  - type: Lifecycle
+    url: lifecycle/ghent-lifecycle.yml
+  - type: Vocabulary
+    url: vocabulary/ghent-biblio-cql-vocabulary.yml
+  - type: Examples
+    url: examples/ghent-examples.yml
+  - type: DomainSecurity
+    url: security/ghent-domain-security.yml
   - type: Plans
     url: plans/ghent-plans-pricing.yml
   - type: RateLimits
