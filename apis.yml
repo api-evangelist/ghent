@@ -118,7 +118,7 @@ apis:
     baseURL: https://hydra.ugent.be/api/2.0/resto
     tags:
     - Mobile
-    - Student
+    - Students
     - Menus
     - Open Data
     - Community
