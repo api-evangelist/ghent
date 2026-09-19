@@ -125,6 +125,12 @@ apis:
   - Identity Federation
   - SAML
   - Shibboleth
+  - SSO
+  - Belnet
+  tags_raw:
+  - Identity Federation
+  - SAML
+  - Shibboleth
   - Single Sign On
   - Belnet
   properties:
@@ -155,6 +161,14 @@ apis:
   - Ex Libris
   - Primo
   - Alma
+  - Tenants
+  tags_raw:
+  - Library
+  - Catalog
+  - Discovery
+  - Ex Libris
+  - Primo
+  - Alma
   - Tenant
   properties:
   - type: LibraryCatalog
@@ -173,6 +187,12 @@ apis:
     and its LTI content-selection endpoint are Dodona's, and no Dodona contract is saved under Ghent.
   humanURL: https://dodona.be/
   tags:
+  - Education Technology
+  - Learning Platform
+  - LTI
+  - Tenants
+  - Spin-out
+  tags_raw:
   - Education Technology
   - Learning Platform
   - LTI
@@ -814,6 +834,8 @@ apis:
   humanURL: https://biblio.ugent.be/doc/api
   baseURL: https://biblio.ugent.be
   tags:
+  - Feed
+  tags_raw:
   - Feeds
   properties:
   - type: OpenAPI
@@ -1401,6 +1423,8 @@ apis:
   humanURL: https://biblio.ugent.be/doc/api
   baseURL: https://biblio.ugent.be
   tags:
+  - Location
+  tags_raw:
   - Locations
   properties:
   - type: OpenAPI
@@ -1454,6 +1478,8 @@ apis:
   humanURL: https://biblio.ugent.be/doc/api
   baseURL: https://biblio.ugent.be
   tags:
+  - Menus
+  tags_raw:
   - Menu
   properties:
   - type: OpenAPI
