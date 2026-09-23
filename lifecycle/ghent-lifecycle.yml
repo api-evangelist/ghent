@@ -1,0 +1,46 @@
+generated: '2026-09-01'
+method: probed
+source: https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md
+x-operator: institution
+note: >-
+  Versioning and change management across Ghent University's own surfaces. Recorded from
+  operator statements and from live probes on 2026-09-01.
+surfaces:
+  - surface: Hydra Resto API
+    versioning: path
+    current: '2.5 (served under the /api/2.0/ path prefix)'
+    retired:
+      - version: '1.0'
+        endpoint: https://hydra.ugent.be/api/1.0/resto/
+        retired: '2020-09'
+    changelog: https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md
+    deprecations:
+      - 'GET /sandwiches.json is deprecated in favour of /sandwiches/static.json (both still return 200)'
+      - 'meal type `side` is no longer used; a `cold` type was added in 2.3'
+    forward_compatibility: >-
+      The operator states explicitly that the value sets for `kind` and `type` may change and
+      that clients must tolerate unknown values. This is a documented compatibility contract,
+      not an inference.
+    stability_note: >-
+      The zeus.ugent.be/hydra endpoint stopped working at some point in 2021 or early 2022 and
+      was never restored; the operator says so in the changelog.
+  - surface: Ghent University Academic Bibliography
+    versioning: none
+    current: unversioned
+    detail: >-
+      No version is present in the path or in any documented header. Change is managed through
+      the format list instead: the plain `mods` export is marked Deprecated in favour of
+      `mods_36`. Dumps are regenerated daily.
+    deprecations:
+      - 'format=mods is marked Deprecated; use format=mods_36'
+    protocol_versions:
+      oai-pmh: '2.0'
+      sru: '1.1'
+      unapi: '1'
+      rss: '1.0'
+  - surface: People Service / Projects Service / OAI Service
+    versioning: path
+    current: 'api/v1 (info.version 0.0.1 in all three contracts)'
+    detail: >-
+      The contracts declare a v1 path prefix but an info.version of 0.0.1, which reads as
+      pre-release. No deprecation policy, sunset header or release notes are published.

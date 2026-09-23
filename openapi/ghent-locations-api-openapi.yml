@@ -1,0 +1,67 @@
+openapi: 3.2.0
+info:
+  title: Hydra Resto Locations API
+  version: '2.5'
+  summary: Student-restaurant locations, daily menus, sandwiches, salads and allergens at Ghent University.
+  description: The Resto API powers Hydra, the Ghent University student app.
+  contact:
+    name: Zeus WPI
+    url: https://zeus.gent/
+  license:
+    name: See the Hydra repository
+    url: https://github.com/ZeusWPI/hydra
+servers:
+- url: https://hydra.ugent.be/api/2.0/resto
+  description: Production
+tags:
+- name: Locations
+paths:
+  /meta.json:
+    get:
+      tags:
+      - Locations
+      operationId: getMeta
+      summary: List every restaurant location known to the API
+      description: The main entry point. Each location carries the endpoint slug used in the menu paths. This data is curated by hand.
+      responses:
+        '200':
+          description: Location list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meta'
+components:
+  schemas:
+    Meta:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+    Location:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        type:
+          type: string
+          description: Main type of the location, for example resto or cafetaria.
+        endpoint:
+          type: string
+          description: Slug used in the menu paths.
+        open:
+          type: object
+          description: Regular opening intervals per location type, as hh:mm pairs. Holidays and exceptional closures are not accounted for.
+          additionalProperties:
+            type: array
+            items:
+              type: array
+              items:
+                type: string

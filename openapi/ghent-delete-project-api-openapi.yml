@@ -1,0 +1,61 @@
+openapi: 3.2.0
+info:
+  title: Projects Service Delete Project API
+  version: 0.0.1
+servers:
+- url: /api/v1
+security:
+- apiKey: []
+tags:
+- name: Delete Project
+paths:
+  /delete-project:
+    post:
+      summary: Delete a project
+      operationId: deleteProject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteProjectRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Delete Project
+components:
+  schemas:
+    DeleteProjectRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+      required:
+      - id
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key

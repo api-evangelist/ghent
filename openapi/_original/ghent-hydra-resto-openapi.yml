@@ -1,0 +1,297 @@
+# x-archived-from: ghent-hydra-resto-openapi.yml
+# x-archived-on: 2026-09-16
+# Provenance
+#   generated: '2026-09-01'
+#   method: derived
+#   source: https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md
+#   x-operator: institution
+#   note: Derived from the Resto API 2.x specification document published by Zeus WPI,
+#     the computer-science student working group at Ghent University, and served from
+#     the university's own host hydra.ugent.be. Every path was probed live on
+#     2026-09-01. The path template is the one correction this run makes to the
+#     catalog: day-menu dates are ISO WITHOUT leading zeroes (/menu/en/2026/9/1.json),
+#     and the zero-padded form the catalog implied returns 404.
+openapi: 3.1.0
+info:
+  title: Hydra Resto API
+  version: '2.5'
+  summary: Student-restaurant locations, daily menus, sandwiches, salads and allergens at Ghent University.
+  description: >-
+    The Resto API powers Hydra, the Ghent University student app. It is built and
+    maintained by Zeus WPI, the university's computer-science student working group,
+    and is served from hydra.ugent.be, a Ghent University host. The menu data itself
+    is scraped from ugent.be and remains the property of Ghent University; Zeus WPI
+    states plainly that correctness and completeness are not guaranteed and that the
+    allergen data is NOT a substitute for the legally mandated allergen information.
+    Version 1.0 is retired; 2.x is current.
+  contact:
+    name: Zeus WPI
+    url: https://zeus.gent/
+  license:
+    name: See the Hydra repository
+    url: https://github.com/ZeusWPI/hydra
+servers:
+  - url: https://hydra.ugent.be/api/2.0/resto
+    description: Production
+tags:
+  - name: Locations
+  - name: Menu
+  - name: Food
+paths:
+  /meta.json:
+    get:
+      tags: [Locations]
+      operationId: getMeta
+      summary: List every restaurant location known to the API
+      description: >-
+        The main entry point. Each location carries the endpoint slug used in the menu
+        paths. This data is curated by hand.
+      responses:
+        '200':
+          description: Location list
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Meta' }
+  /extrafood.json:
+    get:
+      tags: [Food]
+      operationId: getExtraFood
+      summary: Breakfast, dessert and drink items
+      description: >-
+        Availability varies per location and is not represented in the API. Prices here
+        are formatted differently from the day-menu prices.
+      responses:
+        '200':
+          description: Extra food lists
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ExtraFood' }
+  /menu/{endpoint}/overview.json:
+    get:
+      tags: [Menu]
+      operationId: getMenuOverview
+      summary: Menu for every available future day, including today
+      parameters:
+        - $ref: '#/components/parameters/Endpoint'
+      responses:
+        '200':
+          description: Array of day menus
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/DayMenu' }
+  /menu/{endpoint}/{year}/{month}/{day}.json:
+    get:
+      tags: [Menu]
+      operationId: getDayMenu
+      summary: Menu for one day at one restaurant
+      description: >-
+        Dates are ISO 8601 without leading zeroes. 2026-09-01 is /2026/9/1.json; the
+        zero-padded /2026/09/01.json returns 404. Earliest available year is 2016.
+        Days on which the restaurant does not serve (weekends, closures) may be absent
+        entirely rather than returned with open=false.
+      parameters:
+        - $ref: '#/components/parameters/Endpoint'
+        - { name: year, in: path, required: true, schema: { type: integer, minimum: 2016 }, example: 2026 }
+        - { name: month, in: path, required: true, description: 1-12, no leading zero, schema: { type: integer, minimum: 1, maximum: 12 }, example: 9 }
+        - { name: day, in: path, required: true, description: 1-31, no leading zero, schema: { type: integer, minimum: 1, maximum: 31 }, example: 1 }
+      responses:
+        '200':
+          description: One day menu
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/DayMenu' }
+        '404':
+          description: No menu published for that date at that location
+  /sandwiches/static.json:
+    get:
+      tags: [Food]
+      operationId: getRegularSandwiches
+      summary: Regular sandwiches with ingredients and prices
+      responses:
+        '200':
+          description: Sandwich list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Sandwich' }
+  /sandwiches/overview.json:
+    get:
+      tags: [Food]
+      operationId: getWeeklySandwichOverview
+      summary: Upcoming ecological sandwiches of the week
+      responses:
+        '200':
+          description: Weekly sandwich list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/WeeklySandwich' }
+  /sandwiches/{year}.json:
+    get:
+      tags: [Food]
+      operationId: getWeeklySandwichesByYear
+      summary: Every ecological sandwich of a given year
+      description: Earliest available year is 2019. Listed as "groentespread" from academic year 2020-2021.
+      parameters:
+        - { name: year, in: path, required: true, schema: { type: integer, minimum: 2019 }, example: 2026 }
+      responses:
+        '200':
+          description: Weekly sandwich list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/WeeklySandwich' }
+  /salads.json:
+    get:
+      tags: [Food]
+      operationId: getSalads
+      summary: Available salad bowls
+      responses:
+        '200':
+          description: Salad list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Salad' }
+  /allergens.json:
+    get:
+      tags: [Food]
+      operationId: getAllergens
+      summary: Allergen information per food category
+      description: >-
+        An object keyed by food category, each value an object keyed by dish name whose
+        value is the allergen list. Scraped from a hand-maintained page, so dish names
+        here may not match the names on the menu. NOT a substitute for the legally
+        mandated allergen information.
+      responses:
+        '200':
+          description: Allergen map
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Allergens' }
+components:
+  parameters:
+    Endpoint:
+      name: endpoint
+      in: path
+      required: true
+      description: Location slug from /meta.json, for example en, nl-sterre or nl-debrug.
+      schema: { type: string }
+      example: nl-sterre
+  schemas:
+    Meta:
+      type: object
+      properties:
+        locations:
+          type: array
+          items: { $ref: '#/components/schemas/Location' }
+    Location:
+      type: object
+      properties:
+        name: { type: string }
+        address: { type: string }
+        latitude: { type: number }
+        longitude: { type: number }
+        type:
+          type: string
+          description: Main type of the location, for example resto or cafetaria.
+        endpoint:
+          type: string
+          description: Slug used in the menu paths.
+        open:
+          type: object
+          description: Regular opening intervals per location type, as hh:mm pairs. Holidays and exceptional closures are not accounted for.
+          additionalProperties:
+            type: array
+            items:
+              type: array
+              items: { type: string }
+    DayMenu:
+      type: object
+      properties:
+        date: { type: string, format: date }
+        open:
+          type: boolean
+          description: Not a guarantee - some closed days are absent from the output entirely.
+        meals:
+          type: array
+          items: { $ref: '#/components/schemas/Meal' }
+        vegetables:
+          type: array
+          items: { type: string }
+        vegetables2:
+          type: array
+          items: { $ref: '#/components/schemas/Vegetable' }
+        message:
+          type: string
+          description: Optional note about an exceptional closure or menu change.
+    Meal:
+      type: object
+      properties:
+        kind:
+          type: string
+          description: Currently meat, fish, soup, vegetarian or vegan. Clients must tolerate new values.
+        name: { type: string }
+        price: { type: string, description: Textual price. }
+        type:
+          type: string
+          description: Currently main or side. Clients must tolerate new values.
+        allergens:
+          type: array
+          items: { type: string }
+    Vegetable:
+      type: object
+      properties:
+        kind:
+          type: string
+          description: Currently meat, vegetarian or vegan. Clients must tolerate new values.
+        name: { type: string }
+        allergens:
+          type: array
+          items: { type: string }
+    ExtraFood:
+      type: object
+      properties:
+        breakfast: { type: array, items: { $ref: '#/components/schemas/PricedItem' } }
+        desserts: { type: array, items: { $ref: '#/components/schemas/PricedItem' } }
+        drinks: { type: array, items: { $ref: '#/components/schemas/PricedItem' } }
+    PricedItem:
+      type: object
+      properties:
+        name: { type: string }
+        price: { type: string, description: Price in euros, textual. }
+    Sandwich:
+      type: object
+      properties:
+        name: { type: string }
+        ingredients: { type: array, items: { type: string } }
+        price_medium: { type: string }
+        price_small: { type: string }
+    WeeklySandwich:
+      type: object
+      properties:
+        name: { type: string }
+        ingredients: { type: array, items: { type: string } }
+        start: { type: string, format: date }
+        end: { type: string, format: date }
+        vegan: { type: boolean }
+    Salad:
+      type: object
+      properties:
+        name: { type: string }
+        description: { type: string }
+        price: { type: string }
+    Allergens:
+      type: object
+      description: Category name to dish name to allergen list.
+      additionalProperties:
+        type: object
+        additionalProperties:
+          type: array
+          items: { type: string }

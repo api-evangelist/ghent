@@ -1,0 +1,264 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ghent/main/json-schema/ghent-hydra-resto-schema.json",
+  "title": "Hydra Resto API payloads",
+  "description": "JSON Schema for the Ghent University student-restaurant API served at hydra.ugent.be. Derived on 2026-09-01 from the Resto API 2.x specification published by Zeus WPI at https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md and cross-checked against live responses captured in examples/. The API publishes no schema of its own.",
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "derived",
+    "source": "https://github.com/ZeusWPI/hydra/blob/master/api-resto-02.md",
+    "x-operator": "institution"
+  },
+  "$defs": {
+    "Meta": {
+      "type": "object",
+      "properties": {
+        "locations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Location"
+          }
+        }
+      }
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "type": {
+          "type": "string",
+          "description": "Main type of the location, for example resto or cafetaria."
+        },
+        "endpoint": {
+          "type": "string",
+          "description": "Slug used in the menu paths."
+        },
+        "open": {
+          "type": "object",
+          "description": "Regular opening intervals per location type, as hh:mm pairs. Holidays and exceptional closures are not accounted for.",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "DayMenu": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "open": {
+          "type": "boolean",
+          "description": "Not a guarantee - some closed days are absent from the output entirely."
+        },
+        "meals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Meal"
+          }
+        },
+        "vegetables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vegetables2": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Vegetable"
+          }
+        },
+        "message": {
+          "type": "string",
+          "description": "Optional note about an exceptional closure or menu change."
+        }
+      }
+    },
+    "Meal": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "Currently meat, fish, soup, vegetarian or vegan. Clients must tolerate new values."
+        },
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string",
+          "description": "Textual price."
+        },
+        "type": {
+          "type": "string",
+          "description": "Currently main or side. Clients must tolerate new values."
+        },
+        "allergens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Vegetable": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "Currently meat, vegetarian or vegan. Clients must tolerate new values."
+        },
+        "name": {
+          "type": "string"
+        },
+        "allergens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ExtraFood": {
+      "type": "object",
+      "properties": {
+        "breakfast": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PricedItem"
+          }
+        },
+        "desserts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PricedItem"
+          }
+        },
+        "drinks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PricedItem"
+          }
+        }
+      }
+    },
+    "PricedItem": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string",
+          "description": "Price in euros",
+          "textual.": null
+        }
+      }
+    },
+    "Sandwich": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "ingredients": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "price_medium": {
+          "type": "string"
+        },
+        "price_small": {
+          "type": "string"
+        }
+      }
+    },
+    "WeeklySandwich": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "ingredients": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "start": {
+          "type": "string",
+          "format": "date"
+        },
+        "end": {
+          "type": "string",
+          "format": "date"
+        },
+        "vegan": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Salad": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        }
+      }
+    },
+    "Allergens": {
+      "type": "object",
+      "description": "Category name to dish name to allergen list.",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Meta"
+    },
+    {
+      "$ref": "#/$defs/DayMenu"
+    },
+    {
+      "$ref": "#/$defs/ExtraFood"
+    },
+    {
+      "$ref": "#/$defs/Allergens"
+    }
+  ]
+}

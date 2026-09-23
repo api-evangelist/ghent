@@ -1,0 +1,210 @@
+openapi: 3.2.0
+info:
+  title: Ghent University Academic Bibliography Export API
+  version: '2026-09-01'
+  summary: Search, export and harvest 200 years of Ghent University research output.
+  description: The Academic Bibliography (Biblio) is Ghent University's institutional publication and dataset registry, operated by Ghent University Library on the university's own host. It exposes a JSON/JSONP REST search API, per-record and bulk exports in fourteen bibliographic formats, an OAI-PMH 2.0 harvesting endpoint, an SRU 1.1 search service driven by CQL, a unAPI discovery service, RSS feeds and daily full-dataset dumps. Metadata is published under the Open Database License (ODbL).
+  termsOfService: https://www.ugent.be/en/disclaimer
+  contact:
+    name: Ghent University Library
+    email: libservice@ugent.be
+    url: https://biblio.ugent.be/doc/api
+  license:
+    name: Open Database License (ODbL)
+    url: http://opendatacommons.org/licenses/odbl/
+servers:
+- url: https://biblio.ugent.be
+  description: Production
+tags:
+- name: Export
+  description: Per-record and result-set exports in bibliographic formats.
+paths:
+  /publication/{id}:
+    get:
+      tags:
+      - Export
+      operationId: getPublication
+      summary: Retrieve one publication in a chosen format
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '780271'
+      - name: format
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/RecordFormat'
+      responses:
+        '200':
+          description: One publication record in the requested format
+          content:
+            application/json:
+              schema:
+                $ref: https://biblio.ugent.be/schema/publication.schema.latest.json
+            text/plain:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+  /publication/export:
+    get:
+      tags:
+      - Export
+      operationId: exportPublications
+      summary: Export a result set (max 10,000 records)
+      description: JSON and YAML exports are newline-delimited records, not an array. Use OAI-PMH or SRU for result sets larger than 10,000 records.
+      parameters:
+      - name: q
+        in: query
+        schema:
+          type: string
+      - name: format
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/RecordFormat'
+      - name: style
+        in: query
+        description: Citation style, for the txt and doc formats only.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Newline-delimited or document export
+          content:
+            application/json:
+              schema:
+                type: string
+  /person/{ugentId}/publication/export:
+    get:
+      tags:
+      - Export
+      operationId: exportPersonPublications
+      summary: Export one person's publications
+      parameters:
+      - name: ugentId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '801000947425'
+      - name: format
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/RecordFormat'
+      responses:
+        '200':
+          description: Export
+  /group/{ugentIds}/publication/export:
+    get:
+      tags:
+      - Export
+      operationId: exportGroupPublications
+      summary: Export publications for a comma-separated group of people
+      parameters:
+      - name: ugentIds
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: format
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/RecordFormat'
+      responses:
+        '200':
+          description: Export
+  /organization/{id}/publication/export:
+    get:
+      tags:
+      - Export
+      operationId: exportOrganizationPublications
+      summary: Export publications of an organizational unit
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: PP02
+      - name: format
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/RecordFormat'
+      responses:
+        '200':
+          description: Export
+  /organization/{id}/{year}/publication/export:
+    get:
+      tags:
+      - Export
+      operationId: exportOrganizationYearPublications
+      summary: Export publications of an organizational unit for one year
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: year
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: format
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/RecordFormat'
+      responses:
+        '200':
+          description: Export
+  /project/{id}/publication/export:
+    get:
+      tags:
+      - Export
+      operationId: exportProjectPublications
+      summary: Export publications attached to a research project
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: format
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/RecordFormat'
+      responses:
+        '200':
+          description: Export
+components:
+  schemas:
+    RecordFormat:
+      type: string
+      description: Export formats named in the Academic Bibliography documentation.
+      enum:
+      - json
+      - yaml
+      - bibtex
+      - ris
+      - csv
+      - xlsx
+      - rdf
+      - mods
+      - mods_vabb
+      - mods_36
+      - mods_fwo
+      - dc
+      - mets
+      - didl
+      - txt
+      - doc

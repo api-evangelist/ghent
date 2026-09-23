@@ -1,0 +1,50 @@
+openapi: 3.2.0
+info:
+  title: Ghent University Academic Bibliography Feeds API
+  version: '2026-09-01'
+  summary: Search, export and harvest 200 years of Ghent University research output.
+  description: The Academic Bibliography (Biblio) is Ghent University's institutional publication and dataset registry, operated by Ghent University Library on the university's own host. It exposes a JSON/JSONP REST search API, per-record and bulk exports in fourteen bibliographic formats, an OAI-PMH 2.0 harvesting endpoint, an SRU 1.1 search service driven by CQL, a unAPI discovery service, RSS feeds and daily full-dataset dumps. Metadata is published under the Open Database License (ODbL).
+  termsOfService: https://www.ugent.be/en/disclaimer
+  contact:
+    name: Ghent University Library
+    email: libservice@ugent.be
+    url: https://biblio.ugent.be/doc/api
+  license:
+    name: Open Database License (ODbL)
+    url: http://opendatacommons.org/licenses/odbl/
+servers:
+- url: https://biblio.ugent.be
+  description: Production
+tags:
+- name: Feeds
+  description: RSS 1.0 feeds for any CQL search.
+paths:
+  /feed/{interval}:
+    get:
+      tags:
+      - Feeds
+      operationId: getFeed
+      summary: RSS 1.0 feed for any CQL search
+      parameters:
+      - name: interval
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - hourly
+          - daily
+          - weekly
+          - monthly
+      - name: q
+        in: query
+        schema:
+          type: string
+        example: affiliation exact GE12
+      responses:
+        '200':
+          description: RSS feed
+          content:
+            application/rss+xml:
+              schema:
+                type: string

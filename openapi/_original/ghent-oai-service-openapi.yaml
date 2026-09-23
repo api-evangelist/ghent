@@ -1,0 +1,190 @@
+openapi: 3.1.0
+
+servers:
+  - url: /api/v1
+
+info:
+  title: OAI Service
+  version: 0.0.1
+
+paths:
+  /add-metadata-format:
+    post:
+      summary: Add a metadata format
+      description: Add a metadata format
+      operationId: addMetadataFormat
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMetadataFormatRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+        default:
+          $ref: "#/components/responses/Error"
+
+  /add-set:
+    post:
+      summary: Add a set
+      description: Add a set
+      operationId: addSet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddSetRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+        default:
+          $ref: "#/components/responses/Error"
+
+  /add-item:
+    post:
+      summary: Add item
+      description: Add item
+      operationId: addItem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddItemRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+        default:
+          $ref: '#/components/responses/Error'
+  
+  /add-record:
+    post:
+      summary: Add record
+      description: Add record
+      operationId: addRecord
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRecordRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+        default:
+          $ref: '#/components/responses/Error'
+
+  /delete-record:
+    post:
+      summary: Delete a record
+      description: Delete a record
+      operationId: deleteRecord
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteRecordRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+        default:
+          $ref: '#/components/responses/Error'
+
+security:
+  - apiKey: []
+
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+  schemas:
+    AddMetadataFormatRequest:
+      type: object
+      properties:
+        metadata_prefix:
+          type: string
+          minLength: 1
+        schema:
+          type: string
+          minLength: 1
+        metadata_namespace:
+          type: string
+          minLength: 1
+      required: [metadata_prefix, schema, metadata_namespace]
+
+    AddSetRequest:
+      type: object
+      properties:
+        set_spec:
+          type: string
+          minLength: 1
+        set_name:
+          type: string
+          minLength: 1
+        set_description:
+          type: string
+      required: [set_spec, set_name]
+
+    AddItemRequest:
+      type: object
+      properties:
+        identifier:
+          type: string
+          minLength: 1
+        set_specs:
+          type: array
+          items:
+            type: string
+            minLength: 1
+      required: [identifier]
+
+    AddRecordRequest:
+      type: object
+      properties:
+        identifier:
+          type: string
+          minLength: 1
+        metadata_prefix:
+          type: string
+          minLength: 1
+        content:
+          type: string
+          minLength: 1
+      required: [identifier, metadata_prefix, content]
+
+    DeleteRecordRequest:
+      type: object
+      properties:
+        identifier:
+          type: string
+          minLength: 1
+        metadata_prefix:
+          type: string
+          minLength: 1
+      required: [identifier, metadata_prefix]
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+        - code
+        - message

@@ -1,0 +1,189 @@
+openapi: 3.2.0
+info:
+  title: Hydra Resto Food API
+  version: '2.5'
+  summary: Student-restaurant locations, daily menus, sandwiches, salads and allergens at Ghent University.
+  description: The Resto API powers Hydra, the Ghent University student app.
+  contact:
+    name: Zeus WPI
+    url: https://zeus.gent/
+  license:
+    name: See the Hydra repository
+    url: https://github.com/ZeusWPI/hydra
+servers:
+- url: https://hydra.ugent.be/api/2.0/resto
+  description: Production
+tags:
+- name: Food
+paths:
+  /extrafood.json:
+    get:
+      tags:
+      - Food
+      operationId: getExtraFood
+      summary: Breakfast, dessert and drink items
+      description: Availability varies per location and is not represented in the API. Prices here are formatted differently from the day-menu prices.
+      responses:
+        '200':
+          description: Extra food lists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtraFood'
+  /sandwiches/static.json:
+    get:
+      tags:
+      - Food
+      operationId: getRegularSandwiches
+      summary: Regular sandwiches with ingredients and prices
+      responses:
+        '200':
+          description: Sandwich list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sandwich'
+  /sandwiches/overview.json:
+    get:
+      tags:
+      - Food
+      operationId: getWeeklySandwichOverview
+      summary: Upcoming ecological sandwiches of the week
+      responses:
+        '200':
+          description: Weekly sandwich list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WeeklySandwich'
+  /sandwiches/{year}.json:
+    get:
+      tags:
+      - Food
+      operationId: getWeeklySandwichesByYear
+      summary: Every ecological sandwich of a given year
+      description: Earliest available year is 2019. Listed as "groentespread" from academic year 2020-2021.
+      parameters:
+      - name: year
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 2019
+        example: 2026
+      responses:
+        '200':
+          description: Weekly sandwich list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WeeklySandwich'
+  /salads.json:
+    get:
+      tags:
+      - Food
+      operationId: getSalads
+      summary: Available salad bowls
+      responses:
+        '200':
+          description: Salad list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Salad'
+  /allergens.json:
+    get:
+      tags:
+      - Food
+      operationId: getAllergens
+      summary: Allergen information per food category
+      description: An object keyed by food category, each value an object keyed by dish name whose value is the allergen list. Scraped from a hand-maintained page, so dish names here may not match the names on the menu. NOT a substitute for the legally mandated allergen information.
+      responses:
+        '200':
+          description: Allergen map
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allergens'
+components:
+  schemas:
+    Salad:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: string
+    Allergens:
+      type: object
+      description: Category name to dish name to allergen list.
+      additionalProperties:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: string
+    Sandwich:
+      type: object
+      properties:
+        name:
+          type: string
+        ingredients:
+          type: array
+          items:
+            type: string
+        price_medium:
+          type: string
+        price_small:
+          type: string
+    ExtraFood:
+      type: object
+      properties:
+        breakfast:
+          type: array
+          items:
+            $ref: '#/components/schemas/PricedItem'
+        desserts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PricedItem'
+        drinks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PricedItem'
+    WeeklySandwich:
+      type: object
+      properties:
+        name:
+          type: string
+        ingredients:
+          type: array
+          items:
+            type: string
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+        vegan:
+          type: boolean
+    PricedItem:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: string
+          description: Price in euros
+          textual.: null

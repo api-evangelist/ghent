@@ -1,0 +1,145 @@
+openapi: 3.2.0
+info:
+  title: People Service Get People API
+  version: 0.0.1
+servers:
+- url: /api/v1
+security:
+- apiKey: []
+tags:
+- name: Get People
+paths:
+  /get-people:
+    post:
+      summary: Get all person records
+      operationId: GetPeople
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetPeopleRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonPagedListResponse'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Get People
+components:
+  schemas:
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    Person:
+      type: object
+      properties:
+        id:
+          type: string
+        active:
+          type: boolean
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        name:
+          type: string
+        given_name:
+          type: string
+        family_name:
+          type: string
+        email:
+          type: string
+        token:
+          $ref: '#/components/schemas/StringMap'
+        preferred_given_name:
+          type: string
+        preferred_family_name:
+          type: string
+        birth_date:
+          type: string
+        honorific_prefix:
+          type: string
+        identifier:
+          type: array
+          items:
+            type: string
+        organization:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationMember'
+        job_category:
+          type: array
+          items:
+            type: string
+        role:
+          type: array
+          items:
+            type: string
+        settings:
+          type: object
+          additionalProperties:
+            type: string
+        object_class:
+          type: array
+          items:
+            type: string
+    PersonPagedListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        cursor:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+    OrganizationMember:
+      type: object
+      properties:
+        id:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+      required:
+      - id
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
+    GetPeopleRequest:
+      type: object
+      properties:
+        cursor:
+          type: string
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key

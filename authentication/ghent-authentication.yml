@@ -1,0 +1,67 @@
+generated: '2026-09-01'
+method: probed
+source: https://biblio.ugent.be/doc/api
+x-operator: institution
+note: >-
+  How each Ghent University surface authenticates. Verified by live probe on 2026-09-01
+  except where a contract is cited. No credential, key-request flow or OAuth endpoint was
+  invented; where a surface is genuinely open, that is recorded as open.
+surfaces:
+  - surface: Ghent University Academic Bibliography (REST search, exports, OAI-PMH, SRU, unAPI, feeds, dumps)
+    base_url: https://biblio.ugent.be
+    scheme: none
+    public: true
+    detail: >-
+      No API key, token or registration. Anonymous GET returned 200 on the search API, both
+      OAI-PMH verbs, SRU searchRetrieve, unAPI, the sitemap index and the RSS feeds.
+      Metadata is licensed ODbL, so reuse is permitted with attribution and share-alike.
+    evidence:
+      - { url: 'https://biblio.ugent.be/publication?q=dna&format=json', status: 200 }
+      - { url: 'https://biblio.ugent.be/oai?verb=Identify', status: 200 }
+      - { url: 'https://biblio.ugent.be/sru?version=1.1&operation=searchRetrieve&query=dna', status: 200 }
+  - surface: Hydra Resto API
+    base_url: https://hydra.ugent.be/api/2.0/resto
+    scheme: none
+    public: true
+    detail: Anonymous GET returned 200 on every documented endpoint.
+    evidence:
+      - { url: 'https://hydra.ugent.be/api/2.0/resto/meta.json', status: 200 }
+      - { url: 'https://hydra.ugent.be/api/2.0/resto/menu/en/2026/9/1.json', status: 200 }
+  - surface: People Service
+    contract: openapi/ghent-people-service-openapi.yaml
+    scheme: apiKey
+    location: header
+    parameter_name: X-Api-Key
+    public: false
+    detail: >-
+      Stated in the service's own README - PEOPLE_API_KEY is "used in authentication header
+      X-Api-Key for server (openapi)". The service is deployed inside the university estate;
+      no public base URL is published and no key issuance process is public.
+    evidence:
+      - { url: 'https://raw.githubusercontent.com/ugent-library/people-service/main/README.md', status: 200 }
+  - surface: Projects Service
+    contract: openapi/ghent-projects-service-openapi.yaml
+    scheme: apiKey
+    public: false
+    detail: PROJECTS_API_KEY is a required environment variable named "REST API Key" in the service README.
+    evidence:
+      - { url: 'https://raw.githubusercontent.com/ugent-library/projects-service/main/README.md', status: 200 }
+  - surface: OAI Service (administrative write API behind the bibliography's OAI-PMH endpoint)
+    contract: openapi/ghent-oai-service-openapi.yaml
+    scheme: unknown
+    public: false
+    detail: >-
+      The contract declares no securitySchemes. The operations are all writes
+      (add-metadata-format, add-set, add-item, add-record, delete-record) against an internal
+      deployment, so an unauthenticated public deployment is not implied. Recorded as unknown
+      rather than none.
+  - surface: Ghent University SAML 2.0 Identity Provider
+    base_url: https://identity.ugent.be/simplesaml/saml2/idp/metadata.php
+    scheme: saml2
+    public: true
+    detail: >-
+      Metadata document is publicly readable and signed; authentication through it is
+      federated via the Belnet R&E Federation. This is the institution's own IdP, operated by
+      Directie ICT.
+    evidence:
+      - { url: 'https://identity.ugent.be/simplesaml/saml2/idp/metadata.php', status: 200 }

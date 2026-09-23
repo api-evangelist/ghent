@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+<responseDate>2026-09-01T17:19:55Z</responseDate>
+<request verb="ListMetadataFormats">https://biblio.ugent.be/oai</request>
+
+<ListMetadataFormats>
+<metadataFormat>
+    <metadataPrefix>oai_dc</metadataPrefix>
+    <schema>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</schema>
+    <metadataNamespace>http://www.openarchives.org/OAI/2.0/oai_dc/</metadataNamespace>
+</metadataFormat>
+<metadataFormat>
+    <metadataPrefix>mods</metadataPrefix>
+    <schema>http://www.loc.gov/standards/mods/v3/mods-3-3.xsd</schema>
+    <metadataNamespace>http://www.loc.gov/mods/v3</metadataNamespace>
+</metadataFormat>
+<metadataFormat>
+    <metadataPrefix>mods_36</metadataPrefix>
+    <schema>http://www.loc.gov/standards/mods/v3/mods-3-6.xsd</schema>
+    <metadataNamespace>http://www.loc.gov/mods/v3</metadataNamespace>
+</metadataFormat>
+</ListMetadataFormats>
+</OAI-PMH>
+

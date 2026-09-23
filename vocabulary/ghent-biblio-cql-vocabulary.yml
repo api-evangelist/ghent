@@ -1,0 +1,303 @@
+generated: '2026-09-01'
+method: derived
+source: https://biblio.ugent.be/doc/api
+x-operator: institution
+note: 'Query vocabulary for the Ghent University Academic Bibliography, transcribed from Ghent University
+  Library''s own published API documentation. Used by both the SRU 1.1 endpoint and the q parameter of
+  the REST search API. Nothing here is inferred: every index, its supported relations and its sortability
+  are stated on the source page.'
+vocabularies:
+- name: CQL search indexes
+  language: CQL 1.1
+  documentation: http://www.loc.gov/standards/sru/sru1-1archive/cql.html
+  applies_to:
+  - https://biblio.ugent.be/sru
+  - https://biblio.ugent.be/publication
+  count: 78
+  terms:
+  - term: abstract
+    relations: <>, =, all, any
+    sortable: 'no'
+  - term: accesslevel
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+    description: access level of a dataset, possible values are info:eu-repo/semantics/openAccess, info:eu-repo/semantics/restrictedAccess,
+      info:eu-repo/semantics/closedAccess and info:eu-repo/semantics/embargoedAccess
+  - term: affiliation
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+    description: will also find any subunits of the given organizationial unit
+  - term: alternativetitle
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: articlenumber
+    relations: <>, =, exact
+    sortable: 'no'
+  - term: articletype
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: author
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: author.affiliation
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+    description: will also find any subunits of the given organizationial unit
+  - term: basic
+    relations: <>, =, all, any
+    sortable: 'no'
+    description: index with common fields
+  - term: biblioid
+    relations: <>, =, any, exact
+    sortable: 'no'
+  - term: classification
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: conference
+    relations: <>, =, all, any
+    sortable: 'no'
+    description: 'index with conference fields: name, organizer, location'
+  - term: conferencetype
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: contributor
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+    description: finds publications with a matching author, editor or promoter
+  - term: copyrightstatement
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: dateapproved
+    relations: ', =, >, >=, exact'
+    sortable: 'yes'
+  - term: datecreated
+    relations: ', =, >, >=, exact'
+    sortable: 'yes'
+  - term: datelastchanged
+    relations: ', =, >, >=, exact'
+    sortable: 'yes'
+  - term: datesubmitted
+    relations: ', =, >, >=, exact'
+    sortable: 'yes'
+  - term: dateupdated
+    relations: ', =, >, >=, exact'
+    sortable: 'yes'
+  - term: defencedate
+    relations: ', =, >, >=, exact'
+    sortable: 'yes'
+  - term: defense.date
+    relations: ', =, >, >=, exact'
+    sortable: 'yes'
+  - term: department
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+    description: will also find any subunits of the given organizationial unit
+  - term: dissertationtype
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: documenttype
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: doi
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: editor
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: editor.affiliation
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+    description: will also find any subunits of the given organizationial unit
+  - term: embargo
+    relations: <>, =, exact
+    sortable: 'yes'
+    description: 1 if the publication any file has an embargo; deprecated, use "field exact file.change"
+      instead
+  - term: external
+    relations: <>, =, exact
+    sortable: 'no'
+    description: 1 if not a UGent publication
+  - term: field
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+    description: index to query the existence of fields in a record, e.g. "field exact author.orcid_id"
+      finds all records with an author that has an ORCID identifier
+  - term: file
+    relations: <>, =, exact
+    sortable: 'yes'
+    description: 1 if the publication has any kind of file attached; deprecated, use "field exact file"
+      instead
+  - term: file.access
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: file.kind
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: file.publicationversion
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: firstauthor
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: firstpage
+    relations: <>, =, exact
+    sortable: 'no'
+  - term: id
+    relations: <>, =, any, exact
+    sortable: 'no'
+  - term: identifier
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+    description: index of isbn, issn, wos id, vabb id and any other identifier associated with the publication
+  - term: isbn
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: issn
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: issue
+    relations: <>, =, exact
+    sortable: 'no'
+  - term: issuetitle
+    relations: <>, =, exact
+    sortable: 'no'
+  - term: jcr.category
+    relations: <>, =, exact
+    sortable: 'yes'
+  - term: jcr.categorydecile
+    relations: ', =, >, >=, exact'
+    sortable: 'yes'
+  - term: jcr.categoryquartile
+    relations: ', =, >, >=, exact'
+    sortable: 'yes'
+  - term: jcr.categoryvigintile
+    relations: ', =, >, >=, exact'
+    sortable: 'yes'
+  - term: jcr.impactfactor
+    relations: ', =, >, >=, exact'
+    sortable: 'yes'
+  - term: keyword
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: keywords
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: language
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: lastauthor
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: lastpage
+    relations: <>, =, exact
+    sortable: 'no'
+  - term: misctype
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: nonlu
+    relations: <>, =, exact
+    sortable: 'no'
+    description: 1 if not a UGent publication
+  - term: orcid
+    relations: <>, =, exact
+    sortable: 'yes'
+    description: 1 if the publication has been authored by a person that has an ORCID id; deprecated,
+      use "field exact author.orcid_id" instead
+  - term: parent
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+    description: index of journal, book or series title, journal abbreviation
+  - term: project
+    relations: <>, =, all, any
+    sortable: 'no'
+    description: 'index with project fields: id, title, abstract, eu id, eu call id, eu acronym, eu framework
+      programme'
+  - term: project.euframeworkprogramme
+    relations: <>, =, exact
+    sortable: 'no'
+  - term: project.id
+    relations: <>, =, exact
+    sortable: 'no'
+  - term: projectcode
+    relations: <>, =, exact
+    sortable: 'no'
+  - term: promoter
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: publication
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+    description: index of journal, book or series title, journal abbreviation
+  - term: publicationidentifier
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+    description: index of isbn, issn, wos id, vabb id and any other identifier associated with the publication
+  - term: publicationstatus
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: publisher
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: publishingyear
+    relations: ', =, >, >=, all, any, exact'
+    sortable: 'yes'
+    description: publishing year
+  - term: soleauthor
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: subject
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: supervisor
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: title
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: type
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: vabbapproved
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: vabbid
+    relations: <>, =, all, any, exact
+    sortable: 'no'
+  - term: vabbtype
+    relations: <>, =, all, any, exact
+    sortable: 'yes'
+  - term: vabbyear
+    relations: ', =, >, >=, all, any, exact'
+    sortable: 'no'
+    description: years the record was delivered to VABB
+  - term: volume
+    relations: <>, =, exact
+    sortable: 'no'
+  - term: year
+    relations: ', =, >, >=, all, any, exact'
+    sortable: 'yes'
+    description: publishing year
+- name: Citation styles
+  applies_to:
+  - https://biblio.ugent.be/publication/export?format=txt
+  - https://biblio.ugent.be/publication/export?format=doc
+  count: 6
+  terms:
+  - term: mla
+  - term: apa
+  - term: chicago-author-date
+  - term: fwo
+  - term: vancouver
+  - term: ieee
+- name: CQL caveats stated by the operator
+  terms:
+  - term: resultSetId is not supported
+  - term: only the default cql context set is supported
+  - term: the default relation is =
+  - term: the encloses relation is not supported
+  - term: only the =/fuzzy relation modifier is supported
+  - term: relation qualifiers are not supported
+  - term: wildcards (* ?) are supported for the = relation but cannot be the first letter
+  - term: anchors (^) are not yet supported
+  - term: boolean modifiers other than prox/distance<n are not supported
+  - term: the SRU scan and explain operations are not supported

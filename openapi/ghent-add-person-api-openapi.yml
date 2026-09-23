@@ -1,0 +1,131 @@
+openapi: 3.2.0
+info:
+  title: People Service Add Person API
+  version: 0.0.1
+servers:
+- url: /api/v1
+security:
+- apiKey: []
+tags:
+- name: Add Person
+paths:
+  /add-person:
+    post:
+      summary: Insert/update a single person record
+      operationId: AddPerson
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPersonRequest'
+        required: true
+      responses:
+        '200':
+          description: Created/updated single person record successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Add Person
+components:
+  schemas:
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    Person:
+      type: object
+      properties:
+        id:
+          type: string
+        active:
+          type: boolean
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        name:
+          type: string
+        given_name:
+          type: string
+        family_name:
+          type: string
+        email:
+          type: string
+        token:
+          $ref: '#/components/schemas/StringMap'
+        preferred_given_name:
+          type: string
+        preferred_family_name:
+          type: string
+        birth_date:
+          type: string
+        honorific_prefix:
+          type: string
+        identifier:
+          type: array
+          items:
+            type: string
+        organization:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationMember'
+        job_category:
+          type: array
+          items:
+            type: string
+        role:
+          type: array
+          items:
+            type: string
+        settings:
+          type: object
+          additionalProperties:
+            type: string
+        object_class:
+          type: array
+          items:
+            type: string
+    OrganizationMember:
+      type: object
+      properties:
+        id:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+      required:
+      - id
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
+    AddPersonRequest:
+      $ref: '#/components/schemas/Person'
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key

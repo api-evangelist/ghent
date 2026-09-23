@@ -1,0 +1,846 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "definitions": {
+        "related_object": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            },
+            "required": [
+                "_id"
+            ],
+            "additionalProperties": false
+        },
+        "affiliation": {
+            "properties": {
+                "path": {
+                    "items": {
+                        "properties": {
+                            "ugent_id": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "ugent_id"
+                        ],
+                        "type": "object"
+                    },
+                    "minItems": 1,
+                    "type": "array",
+                    "uniqueItems": true
+                },
+                "ugent_id": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "path",
+                "ugent_id"
+            ],
+            "type": "object"
+        },
+        "fileAccess": {
+            "enum": [
+                "open",
+                "private",
+                "restricted"
+            ],
+            "type": "string"
+        },
+        "fileKind": {
+            "enum": [
+                "colophon",
+                "dataset",
+                "dataFactsheet",
+                "fullText",
+                "peerReviewReport",
+                "toc"
+            ],
+            "type": "string"
+        },
+        "filePublicationVersion": {
+            "enum": [
+                "authorVersion",
+                "acceptedVersion",
+                "publishedVersion",
+                "updatedVersion"
+            ],
+            "type": "string"
+        },
+        "flag": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "integer"
+        },
+        "person": {
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "affiliation": {
+                    "items": {
+                        "$ref": "#/definitions/affiliation"
+                    },
+                    "type": "array"
+                },
+                "credit_role": {
+                    "items": {
+                        "enum": [
+                            "first_author",
+                            "last_author",
+                            "conceptualization",
+                            "data_curation",
+                            "formal_analysis",
+                            "funding_acquisition",
+                            "investigation",
+                            "methodology",
+                            "project_administration",
+                            "resources",
+                            "software",
+                            "supervision",
+                            "validation",
+                            "visualization",
+                            "writing_original_draft",
+                            "writing_review_editing"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "name_last_first": {
+                    "type": "string"
+                },
+                "orcid_id": {
+                    "type": "string"
+                },
+                "researcher_id": {
+                    "type": "string"
+                },
+                "scopus_id": {
+                    "type": "string"
+                },
+                "ugent_id": {
+                    "$ref": "#/definitions/stringArray"
+                }
+            },
+            "type": "object"
+        },
+        "personArray": {
+            "items": {
+                "$ref": "#/definitions/person"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+        },
+        "stringArray": {
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+        },
+        "text": {
+            "properties": {
+                "text": {
+                    "type": "string"
+                },
+                "lang": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "dependencies": {
+        "vabb_id": [
+            "vabb_type"
+        ],
+        "vabb_type": [
+            "vabb_id"
+        ],
+        "wos_id": [
+            "wos_type"
+        ],
+        "wos_type": [
+            "wos_id"
+        ]
+    },
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "abstract": {
+            "$ref": "#/definitions/stringArray"
+        },
+        "abstract_full": {
+            "items": {
+                "$ref": "#/definitions/text"
+            },
+            "type": "array"
+        },
+        "additional_info": {
+            "type": "string"
+        },
+        "affiliation": {
+            "items": {
+                "$ref": "#/definitions/affiliation"
+            },
+            "type": "array"
+        },
+        "alternative_location": {
+            "items": {
+                "properties": {
+                    "access": {
+                        "enum": [
+                            "open"
+                        ],
+                        "type": "string"
+                    },
+                    "kind": {
+                        "enum": [
+                            "fullText"
+                        ],
+                        "type": "string"
+                    },
+                    "url": {
+                        "format": "uri",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "access",
+                    "kind",
+                    "url"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "alternative_title": {
+            "$ref": "#/definitions/stringArray"
+        },
+        "article_number": {
+            "type": "string"
+        },
+        "article_type": {
+            "enum": [
+                "letterNote",
+                "original",
+                "proceedingsPaper",
+                "review"
+            ],
+            "type": "string"
+        },
+        "author": {
+            "$ref": "#/definitions/personArray"
+        },
+        "biblio_id": {
+            "type": "string"
+        },
+        "cite": {
+            "properties": {
+                "apa": {
+                    "type": "string"
+                },
+                "bof": {
+                    "type": "string"
+                },
+                "chicago-author-date": {
+                    "type": "string"
+                },
+                "fwo": {
+                    "type": "string"
+                },
+                "ieee": {
+                    "type": "string"
+                },
+                "mla": {
+                    "type": "string"
+                },
+                "vancouver": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "classification": {
+            "enum": [
+                "A1",
+                "A2",
+                "A3",
+                "A4",
+                "B1",
+                "B2",
+                "B3",
+                "C1",
+                "C3",
+                "D1",
+                "D2",
+                "P1",
+                "U",
+                "V"
+            ],
+            "type": "string"
+        },
+        "conference": {
+            "properties": {
+                "end_date": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "organizer": {
+                    "type": "string"
+                },
+                "start_date": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "conference_type": {
+            "enum": [
+                "conferencePaper",
+                "meetingAbstract",
+                "other",
+                "poster",
+                "proceedingsPaper"
+            ],
+            "type": "string"
+        },
+        "copyright_statement": {
+            "type": "string"
+        },
+        "created_by": {
+            "$ref": "#/definitions/person"
+        },
+        "date": {
+            "type": "string"
+        },
+        "date_approved": {
+            "type": "string"
+        },
+        "date_created": {
+            "type": "string"
+        },
+        "date_submitted": {
+            "type": "string"
+        },
+        "date_updated": {
+            "type": "string"
+        },
+        "defense": {
+            "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "doi": {
+            "$ref": "#/definitions/stringArray"
+        },
+        "edition": {
+            "type": "string"
+        },
+        "editor": {
+            "$ref": "#/definitions/personArray"
+        },
+        "external": {
+            "$ref": "#/definitions/flag"
+        },
+        "file": {
+            "items": {
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "access": {
+                        "$ref": "#/definitions/fileAccess"
+                    },
+                    "change": {
+                        "properties": {
+                            "on": {
+                                "type": "string"
+                            },
+                            "to": {
+                                "$ref": "#/definitions/fileAccess"
+                            }
+                        },
+                        "required": [
+                            "on",
+                            "to"
+                        ],
+                        "type": "object"
+                    },
+                    "content_type": {
+                        "type": "string"
+                    },
+                    "kind": {
+                        "$ref": "#/definitions/fileKind"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "publication_version": {
+                        "$ref": "#/definitions/filePublicationVersion"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "thumbnail_url": {
+                        "format": "uri",
+                        "type": "string"
+                    },
+                    "sha256": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "_id",
+                    "access",
+                    "kind"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "handle": {
+            "type": "string"
+        },
+        "identifier": {
+            "items": {
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "value"
+                ],
+                "type": "object"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+        },
+        "isbn": {
+            "$ref": "#/definitions/stringArray"
+        },
+        "issn": {
+            "$ref": "#/definitions/stringArray"
+        },
+        "issue": {
+            "type": "string"
+        },
+        "issue_title": {
+            "type": "string"
+        },
+        "jcr": {
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "category_decile": {
+                    "maximum": 10,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "category_quartile": {
+                    "maximum": 4,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "category_rank": {
+                    "type": "string"
+                },
+                "category_vigintile": {
+                    "maximum": 20,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "eigenfactor": {
+                    "type": "number"
+                },
+                "immediacy_index": {
+                    "type": "number"
+                },
+                "impact_factor": {
+                    "type": "number"
+                },
+                "impact_factor_5year": {
+                    "type": "number"
+                },
+                "prev_category_decile": {
+                    "maximum": 10,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "prev_category_quartile": {
+                    "maximum": 4,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "prev_category_rank": {
+                    "type": "string"
+                },
+                "prev_category_vigintile": {
+                    "maximum": 20,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "prev_impact_factor": {
+                    "type": "number"
+                },
+                "total_cites": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "keyword": {
+            "$ref": "#/definitions/stringArray"
+        },
+        "language": {
+            "$ref": "#/definitions/stringArray"
+        },
+        "misc_type": {
+            "enum": [
+                "artReview",
+                "artisticWork",
+                "bibliography",
+                "biography",
+                "blogPost",
+                "bookReview",
+                "correction",
+                "dictionaryEntry",
+                "editorialMaterial",
+                "encyclopediaEntry",
+                "exhibitionReview",
+                "filmReview",
+                "lectureSpeech",
+                "lemma",
+                "magazinePiece",
+                "manual",
+                "musicEdition",
+                "musicReview",
+                "newsArticle",
+                "newspaperPiece",
+                "other",
+                "preprint",
+                "productReview",
+                "report",
+                "technicalStandard",
+                "textEdition",
+                "textTranslation",
+                "theatreReview",
+                "workingPaper"
+            ],
+            "type": "string"
+        },
+        "page": {
+            "properties": {
+                "count": {
+                    "type": "string"
+                },
+                "first": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "parent": {
+            "properties": {
+                "short_title": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "project": {
+            "items": {
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "abstract": {
+                        "type": "string"
+                    },
+                    "end_date": {
+                        "type": "string"
+                    },
+                    "eu_acronym": {
+                        "type": "string"
+                    },
+                    "eu_call_id": {
+                        "type": "string"
+                    },
+                    "eu_framework_programme": {
+                        "type": "string"
+                    },
+                    "eu_id": {
+                        "type": "string"
+                    },
+                    "publication_count": {
+                        "minimum": 1,
+                        "type": "integer"
+                    },
+                    "start_date": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "ugent_id": {
+                        "$ref": "#/definitions/stringArray"
+                    },
+                    "url": {
+                        "format": "uri",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+        },
+        "promoter": {
+            "$ref": "#/definitions/personArray"
+        },
+        "publication_status": {
+            "enum": [
+                "inpress",
+                "published",
+                "unpublished"
+            ],
+            "type": "string"
+        },
+        "publisher": {
+            "properties": {
+                "location": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "series_title": {
+            "type": "string"
+        },
+        "source": {
+            "properties": {
+                "db": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "record": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "status": {
+            "enum": [
+                "public"
+            ],
+            "type": "string"
+        },
+        "subject": {
+            "items": {
+                "enum": [
+                    "Agriculture and Food Sciences",
+                    "Arts and Architecture",
+                    "Biology and Life Sciences",
+                    "Business and Economics",
+                    "Chemistry",
+                    "Cultural Sciences",
+                    "Earth and Environmental Sciences",
+                    "General Works",
+                    "History and Archaeology",
+                    "Languages and Literatures",
+                    "Law and Political Science",
+                    "Mathematics and Statistics",
+                    "Medicine and Health Sciences",
+                    "Performing Arts",
+                    "Philosophy and Religion",
+                    "Physics and Astronomy",
+                    "Science General",
+                    "Social Sciences",
+                    "Technology and Engineering",
+                    "Veterinary Sciences"
+                ],
+                "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+        },
+        "subject_code": {
+            "items": {
+                "enum": [
+                    "afs",
+                    "ara",
+                    "bls",
+                    "bue",
+                    "che",
+                    "ees",
+                    "gew",
+                    "hia",
+                    "mhs",
+                    "lal",
+                    "lps",
+                    "mas",
+                    "pea",
+                    "phr",
+                    "pha",
+                    "scg",
+                    "sos",
+                    "tee"
+                ],
+                "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+        },
+        "title": {
+            "type": "string"
+        },
+        "type": {
+            "enum": [
+                "book",
+                "bookChapter",
+                "bookEditor",
+                "conference",
+                "dissertation",
+                "issueEditor",
+                "journalArticle",
+                "misc",
+                "researchData"
+            ],
+            "type": "string"
+        },
+        "vabb_approved": {
+            "$ref": "#/definitions/flag"
+        },
+        "vabb_id": {
+            "type": "string"
+        },
+        "vabb_type": {
+            "enum": [
+                "VABB-1",
+                "VABB-2",
+                "VABB-3",
+                "VABB-4",
+                "VABB-5"
+            ],
+            "type": "string"
+        },
+        "volume": {
+            "type": "string"
+        },
+        "wos_id": {
+            "type": "string"
+        },
+        "wos_type": {
+            "type": "string"
+        },
+        "year": {
+            "pattern": "^[0-9]{4}$",
+            "type": "string"
+        },
+        "esci_id": {
+            "type": "string"
+        },
+        "arxiv_id": {
+            "type": "string"
+        },
+        "pubmed_id": {
+            "type": "string"
+        },
+        "format": {
+            "$ref": "#/definitions/stringArray"
+        },
+        "license": {
+            "type": "string"
+        },
+        "access_level": {
+            "type": "string"
+        },
+        "url": {
+            "format": "uri",
+            "type": "string"
+        },
+        "embargo": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "embargo_to": {
+            "type": "string"
+        },
+        "related_publication": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "#/definitions/related_object"
+            }
+        },
+        "related_dataset": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "#/definitions/related_object"
+            }
+        }
+    },
+    "required": [
+        "_id",
+        "biblio_id",
+        "handle",
+        "title",
+        "year"
+    ],
+    "type": "object",
+    "x-provenance": {
+        "generated": "2026-09-01",
+        "method": "searched",
+        "source": "https://biblio.ugent.be/schema/publication.schema.latest.json",
+        "x-operator": "institution",
+        "note": "First-party JSON Schema published by Ghent University Library for the Academic Bibliography publication record. Fetched verbatim on 2026-09-01 and unmodified apart from this provenance key. It is the schema the daily newline-delimited JSON dump conforms to."
+    }
+}

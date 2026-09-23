@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:mdattr="urn:oasis:names:tc:SAML:metadata:attribute" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdrpi="urn:oasis:names:tc:SAML:metadata:rpi" xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" entityID="https://identity.ugent.be/simplesaml/saml2/idp/metadata.php" ID="_f76f8dddcb28b181c997b835d857728e280dbc6167b7aa65895c5fb8b27ae204"><ds:Signature>
+  <ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+    <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+  <ds:Reference URI="#_f76f8dddcb28b181c997b835d857728e280dbc6167b7aa65895c5fb8b27ae204"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>pG+fR85k9lOPcdlFA9v2Bq2H9gsnc7pnOwVkVD+xZu4=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>ZgmtxClljjkfY5gak1sezW2HpC9Iuoog0nSnoEQSuuJw8hTUErIVsow0mxsSd9bk1ul0UQKfr1nDY5r2jhEmcus6uT8sTgGSuze5wq0gyDsQi1qSj8MaV7apefT3xxPmIbFVaV8wHVcP6PKOsppJr8fQCrj7LhJg5ynrJMD895whvUj4IK9FHsuAy6bt0abCi8xyn/iQkiPf9oYoVXqJ31tCE7Vuoe4IAcsqQFnNxZ2n5dgxkgNaAlTaEPexVV+KvX1zXE8OtAIau8JVVoV4Wzl1cdPaRfCSZ03P6dhZUuX6NjTCeYQy9GL4iPeEFxZlgD9uhfhYm+Z7GkSyw8jjDfCpzfKJiYZ6Y3r6g6DDMfPG0mXq0SzOxv8r8gFMPnTDlywYKDS1nZ06IlpE9WIeWUHdWOMYLmqMWzOP/nD0jL5ZNCyx21oWMGYkb4BeQo+4gaKBHSV3NYuEs2knnC2ALe6pqNTZ+Qg51d7SqlsFxnoxmefnSpLVVBCblT+86igs</ds:SignatureValue>
+<ds:KeyInfo><ds:X509Data><ds:X509Certificate>MIIEzDCCAzQCCQD1aC8EZwLUGDANBgkqhkiG9w0BAQsFADCBpzELMAkGA1UEBhMCQkUxGDAWBgNVBAgMD09vc3QtVmxhYW5kZXJlbjENMAsGA1UEBwwER2VudDEaMBgGA1UECgwRVW5pdmVyc2l0ZWl0IEdlbnQxFTATBgNVBAsMDERpcmVjdGllIElDVDEaMBgGA1UEAwwRaWRlbnRpdHkudWdlbnQuYmUxIDAeBgkqhkiG9w0BCQEWEXN5c3RlbWVuQHVnZW50LmJlMB4XDTIwMDcwOTIxMjc1OVoXDTMwMDcwOTIxMjc1OVowgacxCzAJBgNVBAYTAkJFMRgwFgYDVQQIDA9Pb3N0LVZsYWFuZGVyZW4xDTALBgNVBAcMBEdlbnQxGjAYBgNVBAoMEVVuaXZlcnNpdGVpdCBHZW50MRUwEwYDVQQLDAxEaXJlY3RpZSBJQ1QxGjAYBgNVBAMMEWlkZW50aXR5LnVnZW50LmJlMSAwHgYJKoZIhvcNAQkBFhFzeXN0ZW1lbkB1Z2VudC5iZTCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBANO5VsOtTziDfHKgqwbsd+wpJoymbxEKNzEh0DsbPaBZyaHCzUtO7cXUCohCF7f6ZxnXbdUrLzExwgITM37aKtxlEgVl0Azm4Xksb+xq07irV2zWJS1UL6YFbve3GIlWnXx2GgrEwMykfX2LQVts3WQlZKQXLD8ZhjY5ekNhnF3DKalUi9C6AtJxYJfkU9REUL0sIFTgqVN6ZSFt8VbrMD82VG1wzdVamlxBwU9z5DFJkqeg1fy+YovY8cPp1JKX5kynsKMdGX6qWZSLqU58CFDWOQo1llfwCDfvoomKbIc1R4Z77VgcF9SjlupYLYkPCGLrOxTIQihfSZuK2ZIipK0NS7Pfou4kGTHTnrKlcY7tXm6PgrhL8IXVKqJjbxYXu/9vTmu/4WhC61nMyTFPCAui5FDfalIwoTDtQQI2DdGXEIvwD/73xnW2RzNnqUOVD7I4o469nwMFtdZGVlxpnVsINAhRq3lbUTIJZSi8QvCmKK+d+qLzyhWXGtbFi9EFKQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBgQBP4r8K640DZM3yiubhivBpC4mkpl3Phkjk4LxE5F0ODVd1VYM7XnOp/hIN2glyMdc8f0sEoIVRapgy5w2l4Uw6xPGJ+z0hg+2/zgkSk5azmCj2jqX4Zc0mgLF9Vds35VYWL5T+CTXMHFa3NKggA19DcBP6RS4kUvbsvFAV52yFRCWr0J9zuB2A3lK1s+PQHIP5UUF20O15RmyHn3qMzia1OVzMMjACSBWXz7DidRFCUqzSH5obYi54EceszequlUlK0wbkJSns08Y4Q1cX93krjeSlYY0gdAv5flmTSOgB42jaKp6kQCqyLVE0wmSA+tP+wibyhOu5DBW/kMvG/yHPYtxOnRRYf0GnDrJ5GLnr6DuCK3sdzb7G78u8SB8tdeKQnmW/3twHxf93LCUxW2CmXe+p8esMTHqZJZm3rCPkqrWcmnmAYBzp7t/FE5oqg7favMDu5ZzUMSOKI44lrLcmcuqDMTGyAXJKMuR0D7r64NKcrjWtDyOKaqEYrDkQLks=</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature>
+  <md:Extensions>
+    <mdattr:EntityAttributes>
+      <saml:Attribute Name="urn:oasis:names:tc:SAML:attribute:assurance-certification" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">https://refeds.org/sirtfi</saml:AttributeValue>
+      </saml:Attribute>
+      <saml:Attribute Name="http://macedir.org/entity-category-support" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">http://refeds.org/category/research-and-scholarship</saml:AttributeValue>
+      </saml:Attribute>
+    </mdattr:EntityAttributes>
+    <mdrpi:RegistrationInfo registrationAuthority="http://federation.belnet.be/" registrationInstant="2012-03-27T12:00:00Z">
+      <mdrpi:RegistrationPolicy xml:lang="en">http://federation.belnet.be/files/Belnet-metadata-registration-practice-statement.txt</mdrpi:RegistrationPolicy>
+    </mdrpi:RegistrationInfo>
+  </md:Extensions>
+  <md:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" errorURL="https://identity.ugent.be/simplesaml/module.php/core/error/ERRORURL_CODE?ts=ERRORURL_TS&amp;rp=ERRORURL_RP&amp;tid=ERRORURL_TID&amp;ctx=ERRORURL_CTX">
+    <md:Extensions>
+      <shibmd:Scope regexp="false">UGent.be</shibmd:Scope>
+      <mdui:UIInfo>
+        <mdui:DisplayName xml:lang="en">Ghent University</mdui:DisplayName>
+        <mdui:DisplayName xml:lang="nl">Universiteit Gent</mdui:DisplayName>
+        <mdui:Description xml:lang="en">Ghent University is a top 100 university founded in 1817. As one of the major universities in Belgium, our 11 faculties offer a wide range of courses and conduct in-depth research in both exact and social sciences.</mdui:Description>
+        <mdui:Description xml:lang="nl">De Universiteit Gent (UGent) werd opgericht in 1817 door koning Willem I van Oranje. Vandaag is de UGent een top 100 universiteit een van de grootste universiteiten in het Nederlandse taalgebied. Meer dan 100 vakgroepen bieden ruim 230 opleidingen aan. Disciplines als biotechnologie, aquacultuur, micro-elektronica en geschiedenis genieten wereldfaam. De UGent is een creatieve gemeenschap van medewerkers, studenten en alumni, verbonden door engagement, openheid en pluralisme.</mdui:Description>
+        <mdui:Logo width="95" height="68" xml:lang="en">https://identity.ugent.be/images/universiteit_gent.gif</mdui:Logo>
+      </mdui:UIInfo>
+      <mdui:DiscoHints>
+        <mdui:IPHint>157.193.0.0/16</mdui:IPHint>
+        <mdui:DomainHint>ugent.be</mdui:DomainHint>
+        <mdui:DomainHint>www.ugent.be</mdui:DomainHint>
+        <mdui:GeolocationHint>geo:51.0473100,3.7281500</mdui:GeolocationHint>
+      </mdui:DiscoHints>
+    </md:Extensions>
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo>
+        <ds:X509Data>
+          <ds:X509Certificate>MIIEzDCCAzQCCQD1aC8EZwLUGDANBgkqhkiG9w0BAQsFADCBpzELMAkGA1UEBhMCQkUxGDAWBgNVBAgMD09vc3QtVmxhYW5kZXJlbjENMAsGA1UEBwwER2VudDEaMBgGA1UECgwRVW5pdmVyc2l0ZWl0IEdlbnQxFTATBgNVBAsMDERpcmVjdGllIElDVDEaMBgGA1UEAwwRaWRlbnRpdHkudWdlbnQuYmUxIDAeBgkqhkiG9w0BCQEWEXN5c3RlbWVuQHVnZW50LmJlMB4XDTIwMDcwOTIxMjc1OVoXDTMwMDcwOTIxMjc1OVowgacxCzAJBgNVBAYTAkJFMRgwFgYDVQQIDA9Pb3N0LVZsYWFuZGVyZW4xDTALBgNVBAcMBEdlbnQxGjAYBgNVBAoMEVVuaXZlcnNpdGVpdCBHZW50MRUwEwYDVQQLDAxEaXJlY3RpZSBJQ1QxGjAYBgNVBAMMEWlkZW50aXR5LnVnZW50LmJlMSAwHgYJKoZIhvcNAQkBFhFzeXN0ZW1lbkB1Z2VudC5iZTCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBANO5VsOtTziDfHKgqwbsd+wpJoymbxEKNzEh0DsbPaBZyaHCzUtO7cXUCohCF7f6ZxnXbdUrLzExwgITM37aKtxlEgVl0Azm4Xksb+xq07irV2zWJS1UL6YFbve3GIlWnXx2GgrEwMykfX2LQVts3WQlZKQXLD8ZhjY5ekNhnF3DKalUi9C6AtJxYJfkU9REUL0sIFTgqVN6ZSFt8VbrMD82VG1wzdVamlxBwU9z5DFJkqeg1fy+YovY8cPp1JKX5kynsKMdGX6qWZSLqU58CFDWOQo1llfwCDfvoomKbIc1R4Z77VgcF9SjlupYLYkPCGLrOxTIQihfSZuK2ZIipK0NS7Pfou4kGTHTnrKlcY7tXm6PgrhL8IXVKqJjbxYXu/9vTmu/4WhC61nMyTFPCAui5FDfalIwoTDtQQI2DdGXEIvwD/73xnW2RzNnqUOVD7I4o469nwMFtdZGVlxpnVsINAhRq3lbUTIJZSi8QvCmKK+d+qLzyhWXGtbFi9EFKQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBgQBP4r8K640DZM3yiubhivBpC4mkpl3Phkjk4LxE5F0ODVd1VYM7XnOp/hIN2glyMdc8f0sEoIVRapgy5w2l4Uw6xPGJ+z0hg+2/zgkSk5azmCj2jqX4Zc0mgLF9Vds35VYWL5T+CTXMHFa3NKggA19DcBP6RS4kUvbsvFAV52yFRCWr0J9zuB2A3lK1s+PQHIP5UUF20O15RmyHn3qMzia1OVzMMjACSBWXz7DidRFCUqzSH5obYi54EceszequlUlK0wbkJSns08Y4Q1cX93krjeSlYY0gdAv5flmTSOgB42jaKp6kQCqyLVE0wmSA+tP+wibyhOu5DBW/kMvG/yHPYtxOnRRYf0GnDrJ5GLnr6DuCK3sdzb7G78u8SB8tdeKQnmW/3twHxf93LCUxW2CmXe+p8esMTHqZJZm3rCPkqrWcmnmAYBzp7t/FE5oqg7favMDu5ZzUMSOKI44lrLcmcuqDMTGyAXJKMuR0D7r64NKcrjWtDyOKaqEYrDkQLks=</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:KeyDescriptor use="encryption">
+      <ds:KeyInfo>
+        <ds:X509Data>
+          <ds:X509Certificate>MIIEzDCCAzQCCQD1aC8EZwLUGDANBgkqhkiG9w0BAQsFADCBpzELMAkGA1UEBhMCQkUxGDAWBgNVBAgMD09vc3QtVmxhYW5kZXJlbjENMAsGA1UEBwwER2VudDEaMBgGA1UECgwRVW5pdmVyc2l0ZWl0IEdlbnQxFTATBgNVBAsMDERpcmVjdGllIElDVDEaMBgGA1UEAwwRaWRlbnRpdHkudWdlbnQuYmUxIDAeBgkqhkiG9w0BCQEWEXN5c3RlbWVuQHVnZW50LmJlMB4XDTIwMDcwOTIxMjc1OVoXDTMwMDcwOTIxMjc1OVowgacxCzAJBgNVBAYTAkJFMRgwFgYDVQQIDA9Pb3N0LVZsYWFuZGVyZW4xDTALBgNVBAcMBEdlbnQxGjAYBgNVBAoMEVVuaXZlcnNpdGVpdCBHZW50MRUwEwYDVQQLDAxEaXJlY3RpZSBJQ1QxGjAYBgNVBAMMEWlkZW50aXR5LnVnZW50LmJlMSAwHgYJKoZIhvcNAQkBFhFzeXN0ZW1lbkB1Z2VudC5iZTCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBANO5VsOtTziDfHKgqwbsd+wpJoymbxEKNzEh0DsbPaBZyaHCzUtO7cXUCohCF7f6ZxnXbdUrLzExwgITM37aKtxlEgVl0Azm4Xksb+xq07irV2zWJS1UL6YFbve3GIlWnXx2GgrEwMykfX2LQVts3WQlZKQXLD8ZhjY5ekNhnF3DKalUi9C6AtJxYJfkU9REUL0sIFTgqVN6ZSFt8VbrMD82VG1wzdVamlxBwU9z5DFJkqeg1fy+YovY8cPp1JKX5kynsKMdGX6qWZSLqU58CFDWOQo1llfwCDfvoomKbIc1R4Z77VgcF9SjlupYLYkPCGLrOxTIQihfSZuK2ZIipK0NS7Pfou4kGTHTnrKlcY7tXm6PgrhL8IXVKqJjbxYXu/9vTmu/4WhC61nMyTFPCAui5FDfalIwoTDtQQI2DdGXEIvwD/73xnW2RzNnqUOVD7I4o469nwMFtdZGVlxpnVsINAhRq3lbUTIJZSi8QvCmKK+d+qLzyhWXGtbFi9EFKQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBgQBP4r8K640DZM3yiubhivBpC4mkpl3Phkjk4LxE5F0ODVd1VYM7XnOp/hIN2glyMdc8f0sEoIVRapgy5w2l4Uw6xPGJ+z0hg+2/zgkSk5azmCj2jqX4Zc0mgLF9Vds35VYWL5T+CTXMHFa3NKggA19DcBP6RS4kUvbsvFAV52yFRCWr0J9zuB2A3lK1s+PQHIP5UUF20O15RmyHn3qMzia1OVzMMjACSBWXz7DidRFCUqzSH5obYi54EceszequlUlK0wbkJSns08Y4Q1cX93krjeSlYY0gdAv5flmTSOgB42jaKp6kQCqyLVE0wmSA+tP+wibyhOu5DBW/kMvG/yHPYtxOnRRYf0GnDrJ5GLnr6DuCK3sdzb7G78u8SB8tdeKQnmW/3twHxf93LCUxW2CmXe+p8esMTHqZJZm3rCPkqrWcmnmAYBzp7t/FE5oqg7favMDu5ZzUMSOKI44lrLcmcuqDMTGyAXJKMuR0D7r64NKcrjWtDyOKaqEYrDkQLks=</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://identity.ugent.be/simplesaml/module.php/saml/idp/singleLogout"/>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://identity.ugent.be/simplesaml/module.php/saml/idp/singleSignOnService"/>
+  </md:IDPSSODescriptor>
+  <md:Organization>
+    <md:OrganizationName xml:lang="en">UGent</md:OrganizationName>
+    <md:OrganizationDisplayName xml:lang="en">UGent</md:OrganizationDisplayName>
+    <md:OrganizationURL xml:lang="en">http://www.ugent.be</md:OrganizationURL>
+  </md:Organization>
+  <md:ContactPerson contactType="technical">
+    <md:GivenName>Danny</md:GivenName>
+    <md:SurName>Bollaert</md:SurName>
+    <md:EmailAddress>mailto:systemen@ugent.be</md:EmailAddress>
+  </md:ContactPerson>
+  <md:ContactPerson xmlns:remd="http://refeds.org/metadata" contactType="other" remd:contactType="http://refeds.org/metadata/contactType/security">
+    <md:GivenName>Helpdesk UGent</md:GivenName>
+    <md:EmailAddress>mailto:helpdesk@UGent.be</md:EmailAddress>
+  </md:ContactPerson>
+  <md:ContactPerson contactType="technical">
+    <md:GivenName>Helpdesk UGent</md:GivenName>
+    <md:EmailAddress>mailto:helpdesk@UGent.be</md:EmailAddress>
+  </md:ContactPerson>
+</md:EntityDescriptor>

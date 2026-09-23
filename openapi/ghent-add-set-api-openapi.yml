@@ -1,0 +1,67 @@
+openapi: 3.2.0
+info:
+  title: OAI Service Add Set API
+  version: 0.0.1
+servers:
+- url: /api/v1
+security:
+- apiKey: []
+tags:
+- name: Add Set
+paths:
+  /add-set:
+    post:
+      summary: Add a set
+      operationId: addSet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddSetRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Add Set
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
+    AddSetRequest:
+      type: object
+      properties:
+        set_spec:
+          type: string
+          minLength: 1
+        set_name:
+          type: string
+          minLength: 1
+        set_description:
+          type: string
+      required:
+      - set_spec
+      - set_name
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key

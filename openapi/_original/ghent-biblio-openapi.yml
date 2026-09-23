@@ -1,0 +1,340 @@
+# x-archived-from: ghent-biblio-openapi.yml
+# x-archived-on: 2026-09-16
+# Provenance
+#   generated: '2026-09-01'
+#   method: derived
+#   source: https://biblio.ugent.be/doc/api
+#   x-operator: institution
+#   note: Derived from Ghent University Library's own published "Download & API"
+#     documentation for the Academic Bibliography. Every path and parameter below is
+#     named on that page; every endpoint was probed live on 2026-09-01. Nothing was
+#     invented. Ghent University Library publishes no OpenAPI of its own for this API.
+openapi: 3.1.0
+info:
+  title: Ghent University Academic Bibliography API
+  version: '2026-09-01'
+  summary: Search, export and harvest 200 years of Ghent University research output.
+  description: >-
+    The Academic Bibliography (Biblio) is Ghent University's institutional
+    publication and dataset registry, operated by Ghent University Library on the
+    university's own host. It exposes a JSON/JSONP REST search API, per-record and
+    bulk exports in fourteen bibliographic formats, an OAI-PMH 2.0 harvesting
+    endpoint, an SRU 1.1 search service driven by CQL, a unAPI discovery service,
+    RSS feeds and daily full-dataset dumps. Metadata is published under the Open
+    Database License (ODbL).
+  termsOfService: https://www.ugent.be/en/disclaimer
+  contact:
+    name: Ghent University Library
+    email: libservice@ugent.be
+    url: https://biblio.ugent.be/doc/api
+  license:
+    name: Open Database License (ODbL)
+    url: http://opendatacommons.org/licenses/odbl/
+servers:
+  - url: https://biblio.ugent.be
+    description: Production
+tags:
+  - name: Search
+    description: REST search over publications and datasets.
+  - name: Export
+    description: Per-record and result-set exports in bibliographic formats.
+  - name: OAI-PMH
+    description: OAI-PMH 2.0 metadata harvesting.
+  - name: SRU
+    description: SRU 1.1 search/retrieve over CQL.
+  - name: unAPI
+    description: unAPI 1 alternate-format discovery.
+  - name: Feeds
+    description: RSS 1.0 feeds for any CQL search.
+  - name: Dumps
+    description: Daily full-dataset dumps under ODbL.
+paths:
+  /publication:
+    get:
+      tags: [Search]
+      operationId: searchPublications
+      summary: Search publications and datasets
+      description: >-
+        Returns a JSON result envelope. Adding a callback parameter returns JSONP
+        wrapped in that function name.
+      parameters:
+        - name: q
+          in: query
+          description: CQL query. See the CQL index list in vocabulary/.
+          schema: { type: string }
+          example: dna
+        - name: format
+          in: query
+          required: true
+          schema: { type: string, enum: [json] }
+        - name: sort
+          in: query
+          description: Comma-separated sort keys, each "field.asc" or "field.desc".
+          schema: { type: string }
+          example: year.desc,title.asc
+        - name: limit
+          in: query
+          schema: { type: integer }
+        - name: start
+          in: query
+          schema: { type: integer }
+        - name: callback
+          in: query
+          description: JSONP callback function name.
+          schema: { type: string }
+      responses:
+        '200':
+          description: Search result envelope
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SearchResult' }
+            text/javascript:
+              schema: { type: string, description: JSONP-wrapped SearchResult }
+  /publication/{id}:
+    get:
+      tags: [Export]
+      operationId: getPublication
+      summary: Retrieve one publication in a chosen format
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+          example: '780271'
+        - name: format
+          in: query
+          required: true
+          schema: { $ref: '#/components/schemas/RecordFormat' }
+      responses:
+        '200':
+          description: One publication record in the requested format
+          content:
+            application/json:
+              schema:
+                $ref: https://biblio.ugent.be/schema/publication.schema.latest.json
+            text/plain: { schema: { type: string } }
+            application/xml: { schema: { type: string } }
+  /publication/export:
+    get:
+      tags: [Export]
+      operationId: exportPublications
+      summary: Export a result set (max 10,000 records)
+      description: >-
+        JSON and YAML exports are newline-delimited records, not an array. Use OAI-PMH
+        or SRU for result sets larger than 10,000 records.
+      parameters:
+        - name: q
+          in: query
+          schema: { type: string }
+        - name: format
+          in: query
+          required: true
+          schema: { $ref: '#/components/schemas/RecordFormat' }
+        - name: style
+          in: query
+          description: Citation style, for the txt and doc formats only.
+          schema: { type: string }
+      responses:
+        '200':
+          description: Newline-delimited or document export
+          content:
+            application/json: { schema: { type: string } }
+  /person/{ugentId}/publication/export:
+    get:
+      tags: [Export]
+      operationId: exportPersonPublications
+      summary: Export one person's publications
+      parameters:
+        - { name: ugentId, in: path, required: true, schema: { type: string }, example: '801000947425' }
+        - { name: format, in: query, required: true, schema: { $ref: '#/components/schemas/RecordFormat' } }
+      responses:
+        '200': { description: Export }
+  /group/{ugentIds}/publication/export:
+    get:
+      tags: [Export]
+      operationId: exportGroupPublications
+      summary: Export publications for a comma-separated group of people
+      parameters:
+        - { name: ugentIds, in: path, required: true, schema: { type: string } }
+        - { name: format, in: query, required: true, schema: { $ref: '#/components/schemas/RecordFormat' } }
+      responses:
+        '200': { description: Export }
+  /organization/{id}/publication/export:
+    get:
+      tags: [Export]
+      operationId: exportOrganizationPublications
+      summary: Export publications of an organizational unit
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string }, example: PP02 }
+        - { name: format, in: query, required: true, schema: { $ref: '#/components/schemas/RecordFormat' } }
+      responses:
+        '200': { description: Export }
+  /organization/{id}/{year}/publication/export:
+    get:
+      tags: [Export]
+      operationId: exportOrganizationYearPublications
+      summary: Export publications of an organizational unit for one year
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+        - { name: year, in: path, required: true, schema: { type: integer } }
+        - { name: format, in: query, required: true, schema: { $ref: '#/components/schemas/RecordFormat' } }
+      responses:
+        '200': { description: Export }
+  /project/{id}/publication/export:
+    get:
+      tags: [Export]
+      operationId: exportProjectPublications
+      summary: Export publications attached to a research project
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+        - { name: format, in: query, required: true, schema: { $ref: '#/components/schemas/RecordFormat' } }
+      responses:
+        '200': { description: Export }
+  /oai:
+    get:
+      tags: [OAI-PMH]
+      operationId: oaiPmh
+      summary: OAI-PMH 2.0 harvesting endpoint
+      description: >-
+        Repository identifier archive.ugent.be, repository name "Ghent University
+        Institutional Archive", deletedRecord policy "persistent", granularity
+        YYYY-MM-DDThh:mm:ssZ. Verified live 2026-09-01.
+      parameters:
+        - name: verb
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [Identify, ListMetadataFormats, ListSets, ListIdentifiers, ListRecords, GetRecord]
+        - { name: metadataPrefix, in: query, schema: { type: string }, example: oai_dc }
+        - { name: resumptionToken, in: query, schema: { type: string } }
+        - { name: identifier, in: query, schema: { type: string }, example: 'oai:archive.ugent.be:1196384' }
+        - { name: set, in: query, schema: { type: string } }
+        - { name: from, in: query, schema: { type: string, format: date-time } }
+        - { name: until, in: query, schema: { type: string, format: date-time } }
+      responses:
+        '200':
+          description: OAI-PMH response envelope
+          content:
+            application/xml:
+              schema: { type: string }
+              externalValue: ../examples/ghent-biblio-oai-identify.xml
+  /sru:
+    get:
+      tags: [SRU]
+      operationId: sruSearchRetrieve
+      summary: SRU 1.1 search/retrieve over CQL
+      description: >-
+        The scan and explain operations and result sets are not supported. Only the
+        default CQL context set is available.
+      parameters:
+        - { name: version, in: query, required: true, schema: { type: string, enum: ['1.1'] } }
+        - { name: operation, in: query, required: true, schema: { type: string, enum: [searchRetrieve] } }
+        - { name: query, in: query, required: true, schema: { type: string }, example: 'title any "dna loci"' }
+        - { name: maximumRecords, in: query, schema: { type: integer } }
+        - { name: startRecord, in: query, schema: { type: integer } }
+        - { name: sortKeys, in: query, schema: { type: string }, example: 'year,,0' }
+      responses:
+        '200':
+          description: SRU searchRetrieveResponse
+          content:
+            text/xml: { schema: { type: string } }
+  /unapi:
+    get:
+      tags: [unAPI]
+      operationId: unapi
+      summary: unAPI 1 alternate-format discovery
+      description: >-
+        With no parameters, returns the list of formats available for all records.
+        With id, the formats for one record. With id and format, the record itself.
+      parameters:
+        - { name: id, in: query, schema: { type: string }, example: '2003357' }
+        - { name: format, in: query, schema: { $ref: '#/components/schemas/RecordFormat' } }
+      responses:
+        '200':
+          description: unAPI formats document or a record
+          content:
+            application/xml: { schema: { type: string } }
+  /siteindex.xml:
+    get:
+      tags: [Search]
+      operationId: siteIndex
+      summary: Sitemap index listing all records
+      description: A lightweight way to harvest every record URL.
+      responses:
+        '200':
+          description: Sitemap index
+          content:
+            text/xml: { schema: { type: string } }
+  /feed/{interval}:
+    get:
+      tags: [Feeds]
+      operationId: getFeed
+      summary: RSS 1.0 feed for any CQL search
+      parameters:
+        - name: interval
+          in: path
+          required: true
+          schema: { type: string, enum: [hourly, daily, weekly, monthly] }
+        - { name: q, in: query, schema: { type: string }, example: 'affiliation exact GE12' }
+      responses:
+        '200':
+          description: RSS feed
+          content:
+            application/rss+xml: { schema: { type: string } }
+  /exports/publications.csv:
+    get:
+      tags: [Dumps]
+      operationId: dumpCsv
+      summary: Daily full dataset, comma-separated (~370MB; .zip variant ~130MB)
+      responses:
+        '200': { description: CSV dump, content: { text/csv: { schema: { type: string } } } }
+  /exports/publications.json:
+    get:
+      tags: [Dumps]
+      operationId: dumpJson
+      summary: Daily full dataset, newline-delimited JSON (~2.2GB; .zip variant ~370MB)
+      description: Records conform to the publication JSON Schema in json-schema/.
+      responses:
+        '200': { description: NDJSON dump, content: { application/json: { schema: { type: string } } } }
+  /exports/publications-mods36.xml:
+    get:
+      tags: [Dumps]
+      operationId: dumpMods36
+      summary: Daily full dataset, MODS 3.6 (~3.3GB; .zip variant ~320MB)
+      responses:
+        '200': { description: MODS dump, content: { application/xml: { schema: { type: string } } } }
+components:
+  schemas:
+    RecordFormat:
+      type: string
+      description: Export formats named in the Academic Bibliography documentation.
+      enum:
+        - json
+        - yaml
+        - bibtex
+        - ris
+        - csv
+        - xlsx
+        - rdf
+        - mods
+        - mods_vabb
+        - mods_36
+        - mods_fwo
+        - dc
+        - mets
+        - didl
+        - txt
+        - doc
+    SearchResult:
+      type: object
+      properties:
+        hits:
+          type: array
+          description: Publication records.
+          items:
+            $ref: https://biblio.ugent.be/schema/publication.schema.latest.json
+        limit: { type: integer }
+        total: { type: integer }
+        size: { type: integer }
+        start: { type: integer }

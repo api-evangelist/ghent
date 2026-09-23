@@ -1,0 +1,58 @@
+generated: '2026-09-01'
+method: probed
+source: https://biblio.ugent.be/doc/api
+x-operator: institution
+note: >-
+  Manifest for the response captures in this directory. Every file is a verbatim, unedited
+  response fetched from a Ghent University host on 2026-09-01. None was hand-written.
+examples:
+  - file: ghent-biblio-oai-identify.xml
+    request: 'GET https://biblio.ugent.be/oai?verb=Identify'
+    status: 200
+    content_type: application/xml
+    method: probed
+    x-operator: institution
+    describes: openapi/ghent-biblio-openapi.yml#/paths/~1oai/get
+  - file: ghent-biblio-oai-listmetadataformats.xml
+    request: 'GET https://biblio.ugent.be/oai?verb=ListMetadataFormats'
+    status: 200
+    content_type: application/xml
+    method: probed
+    x-operator: institution
+    describes: openapi/ghent-biblio-openapi.yml#/paths/~1oai/get
+  - file: ghent-biblio-publication.json
+    request: 'GET https://biblio.ugent.be/publication/780271.json'
+    status: 200
+    content_type: application/json
+    method: probed
+    x-operator: institution
+    describes: openapi/ghent-biblio-openapi.yml#/paths/~1publication~1{id}/get
+    conforms_to: json-schema/ghent-biblio-publication-schema.json
+  - file: ghent-hydra-resto-meta.json
+    request: 'GET https://hydra.ugent.be/api/2.0/resto/meta.json'
+    status: 200
+    content_type: application/json
+    method: probed
+    x-operator: institution
+    describes: openapi/ghent-hydra-resto-openapi.yml#/paths/~1meta.json/get
+    conforms_to: json-schema/ghent-hydra-resto-schema.json#/$defs/Meta
+  - file: ghent-hydra-resto-menu-day.json
+    request: 'GET https://hydra.ugent.be/api/2.0/resto/menu/en/2026/9/1.json'
+    status: 200
+    content_type: application/json
+    method: probed
+    x-operator: institution
+    describes: openapi/ghent-hydra-resto-openapi.yml#/paths/~1menu~1{endpoint}~1{year}~1{month}~1{day}.json/get
+    conforms_to: json-schema/ghent-hydra-resto-schema.json#/$defs/DayMenu
+    note: >-
+      Captured with unpadded date components. The zero-padded form of the same date returns 404.
+  - file: ghent-saml-idp-metadata.xml
+    request: 'GET https://identity.ugent.be/simplesaml/saml2/idp/metadata.php'
+    status: 200
+    content_type: application/samlmetadata+xml
+    method: probed
+    x-operator: institution
+    describes: conformance/ghent-education-standards-conformance.yml#/standards/1
+    note: >-
+      Ghent University's own signed SAML 2.0 IdP metadata. Certificate subject is
+      O=Universiteit Gent, OU=Directie ICT, CN=identity.ugent.be.

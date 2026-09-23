@@ -1,0 +1,151 @@
+generated: '2026-09-01'
+method: probed
+source: https://biblio.ugent.be/doc/api
+x-operator: institution
+note: >-
+  Conformance of Ghent University's own surfaces against the standards[] of the Kin Score
+  `education` regulatory regime. Every hit below points at an exact location in a contract
+  or a live response captured in this repository on 2026-09-01. Every miss is recorded as a
+  miss. Nothing here is claimed from prose on a web page.
+regime: education
+standards:
+  - standard: oai-pmh
+    conformant: true
+    version: '2.0'
+    evidence:
+      - what: Live Identify response naming the repository and its policies
+        url: https://biblio.ugent.be/oai?verb=Identify
+        status: 200
+        artifact: examples/ghent-biblio-oai-identify.xml
+        detail: >-
+          repositoryName "Ghent University Institutional Archive", baseURL
+          https://biblio.ugent.be/oai, protocolVersion 2.0, repositoryIdentifier
+          archive.ugent.be, deletedRecord persistent, granularity YYYY-MM-DDThh:mm:ssZ,
+          adminEmail libservice@ugent.be.
+      - what: ListMetadataFormats response
+        url: https://biblio.ugent.be/oai?verb=ListMetadataFormats
+        status: 200
+        artifact: examples/ghent-biblio-oai-listmetadataformats.xml
+      - what: OAI-PMH operations declared in the contract
+        artifact: openapi/ghent-biblio-openapi.yml
+        location: paths./oai.get
+      - what: Ghent University Library publishes the OAI-PMH server it runs as open source
+        url: https://github.com/ugent-library/oai-service
+        artifact: openapi/ghent-oai-service-openapi.yaml
+  - standard: saml
+    conformant: true
+    version: '2.0'
+    evidence:
+      - what: Ghent University's own SAML 2.0 Identity Provider metadata
+        url: https://identity.ugent.be/simplesaml/saml2/idp/metadata.php
+        status: 200
+        content_type: application/samlmetadata+xml
+        artifact: examples/ghent-saml-idp-metadata.xml
+        detail: >-
+          entityID https://identity.ugent.be/simplesaml/saml2/idp/metadata.php, signed with a
+          certificate issued to O=Universiteit Gent, OU=Directie ICT, CN=identity.ugent.be.
+          SimpleSAMLphp implementation, operated by the university's own ICT directorate.
+      - what: Registered in the Belnet R&E Federation aggregate
+        url: https://federation.belnet.be/federation-metadata.xml
+        status: 200
+        detail: >-
+          Eight ugent.be entities appear in the Belgian national federation metadata - the IdP
+          above plus seven service providers (apivsc.ugent.be, dodona.ugent.be,
+          fairvault.dev.ugent.be, login.psb.ugent.be, naos.ugent.be, sso.irc.ugent.be and
+          ugent.standaardstudentshop.be).
+  - standard: shibboleth
+    conformant: true
+    evidence:
+      - what: Shibboleth metadata extension namespace carried in the university's own IdP metadata
+        artifact: examples/ghent-saml-idp-metadata.xml
+        location: /md:EntityDescriptor/@xmlns:shibmd
+        detail: >-
+          The entity descriptor declares xmlns:shibmd="urn:mace:shibboleth:metadata:1.0", the
+          Shibboleth metadata profile used across InCommon/eduGAIN-style federations. The IdP
+          software itself is SimpleSAMLphp, not the Shibboleth IdP - the conformance is to the
+          metadata profile, not to a software choice.
+  - standard: orcid
+    conformant: true
+    evidence:
+      - what: ORCID iD is a first-class field on the person record in the university's own contract
+        artifact: openapi/ghent-people-service-openapi.yaml
+        location: paths./set-person-orcid.post
+      - what: ORCID iD is an accepted value of the author index in the bibliography query vocabulary
+        artifact: vocabulary/ghent-biblio-cql-vocabulary.yml
+        location: CQL search indexes -> author
+        detail: 'author exact accepts "[last name], [first name]", biblio id, ugent id or orcid id'
+      - what: A dedicated CQL index for ORCID
+        artifact: vocabulary/ghent-biblio-cql-vocabulary.yml
+        location: CQL search indexes -> orcid
+      - what: Ghent University Library publishes its own ORCID 2.0 API client
+        url: https://github.com/ugent-library/orcid
+  - standard: crossref
+    conformant: true
+    evidence:
+      - what: Ghent University is a Crossref member in its own name
+        url: https://api.crossref.org/members/9286
+        status: 200
+        detail: 'member id 9286, DOI prefix 10.21825, location Ghent Belgium, 28,489 DOIs deposited'
+      - what: DOI is a first-class CQL index on the bibliography
+        artifact: vocabulary/ghent-biblio-cql-vocabulary.yml
+        location: CQL search indexes -> doi
+  - standard: datacite
+    conformant: false
+    evidence:
+      - what: No DataCite repository registered under this institution
+        url: https://api.datacite.org/clients?query=ugent
+        status: 200
+        detail: 'meta.total 0; the same query for "ghent" also returns 0'
+  - standard: lti
+    conformant: false
+    evidence:
+      - what: An LTI content-selection route exists on Dodona, but Dodona is not a Ghent University surface
+        url: https://dodona.be/en/lti/content_selection
+        status: 401
+        detail: >-
+          dodona.ugent.be 301-redirects to dodona.be. Dodona originated at Ghent University and
+          UGent registered it as a service provider in the Belnet federation, but the platform is
+          now operated on its own domain with its own pricing. Its LTI support is Dodona's, not
+          the university's, and is recorded here as a miss rather than credited.
+  - standard: scim
+    conformant: false
+    evidence:
+      - what: No SCIM endpoint or schema found on any Ghent University surface probed
+        detail: >-
+          people-service, the university's own identity-adjacent contract, uses bespoke
+          add-person / get-person operations rather than SCIM resources.
+  - standard: oneroster
+    conformant: false
+    evidence:
+      - what: Not found on any probed surface
+  - standard: ed-fi
+    conformant: false
+    evidence:
+      - what: Not found on any probed surface
+  - standard: caliper
+    conformant: false
+    evidence:
+      - what: Not found on any probed surface
+  - standard: qti
+    conformant: false
+    evidence:
+      - what: Not found on any probed surface
+other_standards_observed:
+  - standard: sru
+    version: '1.1'
+    detail: Live searchRetrieve at https://biblio.ugent.be/sru (200). scan and explain unsupported.
+  - standard: unapi
+    version: '1'
+    detail: Live at https://biblio.ugent.be/unapi (200).
+  - standard: mods
+    version: '3.6'
+    detail: Per-record and full-dataset MODS 3.6 exports.
+  - standard: dublin-core
+    detail: oai_dc metadata prefix on the OAI-PMH endpoint.
+  - standard: mets
+  - standard: didl
+  - standard: odbl
+    detail: Bibliography metadata and dumps published under the Open Database License.
+  - standard: openapi
+    version: '3.1.0'
+    detail: The three ugent-library service contracts are authored as OpenAPI 3.1.0.

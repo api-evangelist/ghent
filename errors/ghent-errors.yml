@@ -1,0 +1,43 @@
+generated: '2026-09-01'
+method: derived
+source: https://raw.githubusercontent.com/ugent-library/people-service/main/api/v1/openapi.yaml
+x-operator: institution
+note: >-
+  Error handling across Ghent University's own surfaces. The three ugent-library contracts
+  share one error shape; the public library surfaces return protocol-level errors defined by
+  OAI-PMH and SRU rather than an HTTP error body. Everything below is read from a contract or
+  from a live response.
+error_models:
+  - name: ugent-library service error
+    applies_to:
+      - openapi/ghent-people-service-openapi.yaml
+      - openapi/ghent-projects-service-openapi.yaml
+      - openapi/ghent-oai-service-openapi.yaml
+    location: components.responses.Error
+    shape:
+      code: integer
+      message: string
+    detail: >-
+      Every operation in all three contracts terminates its responses with a `default`
+      response referencing the shared Error response. Only projects-service declares an
+      explicit status-coded error (404, project not found); the rest are carried by default.
+  - name: OAI-PMH protocol error
+    applies_to: https://biblio.ugent.be/oai
+    transport: HTTP 200 with an <error> element
+    detail: >-
+      OAI-PMH 2.0 returns errors inside the response envelope, not as an HTTP status. Expect
+      badVerb, badArgument, badResumptionToken, cannotDisseminateFormat, idDoesNotExist,
+      noRecordsMatch and noSetHierarchy.
+    reference: http://www.openarchives.org/OAI/openarchivesprotocol.html
+  - name: SRU diagnostic
+    applies_to: https://biblio.ugent.be/sru
+    transport: HTTP 200 with a searchRetrieveResponse containing <diagnostics>
+    detail: >-
+      SRU 1.1 reports failures as diagnostics inside the response. The operator additionally
+      documents that scan, explain and result sets are unsupported, so requests using them
+      fail at the protocol level rather than returning data.
+    reference: https://www.loc.gov/standards/sru/index.html
+observed_http_behaviour:
+  - { surface: Hydra Resto API, url: 'https://hydra.ugent.be/api/2.0/resto/menu/en/2026/09/01.json', status: 404, detail: 'Zero-padded date components 404. The documented form is unpadded - /2026/9/1.json returns 200.' }
+  - { surface: Ghent University Library catalog, url: 'https://lib.ugent.be/oai', status: 404, detail: 'The library catalog OAI-PMH endpoint the catalog previously exposed is gone; lib.ugent.be now redirects to an Ex Libris Primo VE deployment.' }
+  - { surface: Ghent University Library catalog, url: 'https://lib.ugent.be/sru', status: 404, detail: 'Same - the SRU interface is gone.' }
