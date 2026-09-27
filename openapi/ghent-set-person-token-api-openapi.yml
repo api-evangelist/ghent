@@ -32,10 +32,6 @@ paths:
       - Set Person Token
 components:
   schemas:
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
     Person:
       type: object
       properties:
@@ -91,22 +87,6 @@ components:
           type: array
           items:
             type: string
-    SetPersonTokenRequest:
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 1
-        type:
-          type: string
-          minLength: 1
-        token:
-          type: string
-          minLength: 1
-      required:
-      - id
-      - type
-      - token
     Error:
       type: object
       properties:
@@ -131,6 +111,26 @@ components:
           format: date-time
       required:
       - id
+    SetPersonTokenRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          minLength: 1
+        token:
+          type: string
+          minLength: 1
+      required:
+      - id
+      - type
+      - token
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
   responses:
     Error:
       description: Error

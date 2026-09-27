@@ -124,43 +124,6 @@ components:
           type: string
         price:
           type: string
-    Allergens:
-      type: object
-      description: Category name to dish name to allergen list.
-      additionalProperties:
-        type: object
-        additionalProperties:
-          type: array
-          items:
-            type: string
-    Sandwich:
-      type: object
-      properties:
-        name:
-          type: string
-        ingredients:
-          type: array
-          items:
-            type: string
-        price_medium:
-          type: string
-        price_small:
-          type: string
-    ExtraFood:
-      type: object
-      properties:
-        breakfast:
-          type: array
-          items:
-            $ref: '#/components/schemas/PricedItem'
-        desserts:
-          type: array
-          items:
-            $ref: '#/components/schemas/PricedItem'
-        drinks:
-          type: array
-          items:
-            $ref: '#/components/schemas/PricedItem'
     WeeklySandwich:
       type: object
       properties:
@@ -178,6 +141,15 @@ components:
           format: date
         vegan:
           type: boolean
+    Allergens:
+      type: object
+      description: Category name to dish name to allergen list.
+      additionalProperties:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: string
     PricedItem:
       type: object
       properties:
@@ -187,3 +159,31 @@ components:
           type: string
           description: Price in euros
           textual.: null
+    ExtraFood:
+      type: object
+      properties:
+        breakfast:
+          type: array
+          items:
+            $ref: '#/components/schemas/PricedItem'
+        desserts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PricedItem'
+        drinks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PricedItem'
+    Sandwich:
+      type: object
+      properties:
+        name:
+          type: string
+        ingredients:
+          type: array
+          items:
+            type: string
+        price_medium:
+          type: string
+        price_small:
+          type: string

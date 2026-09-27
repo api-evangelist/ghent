@@ -32,10 +32,19 @@ paths:
       - Set Person Settings
 components:
   schemas:
-    StringMap:
+    SetPersonSettingsRequest:
       type: object
-      additionalProperties:
-        type: string
+      properties:
+        id:
+          type: string
+          minLength: 1
+        settings:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - id
+      - settings
     Person:
       type: object
       properties:
@@ -91,19 +100,6 @@ components:
           type: array
           items:
             type: string
-    SetPersonSettingsRequest:
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 1
-        settings:
-          type: object
-          additionalProperties:
-            type: string
-      required:
-      - id
-      - settings
     Error:
       type: object
       properties:
@@ -128,6 +124,10 @@ components:
           format: date-time
       required:
       - id
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
   responses:
     Error:
       description: Error

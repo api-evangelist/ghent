@@ -32,10 +32,6 @@ paths:
       - Get People
 components:
   schemas:
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
     Person:
       type: object
       properties:
@@ -102,6 +98,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Person'
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
     OrganizationMember:
       type: object
       properties:
@@ -115,22 +122,15 @@ components:
           format: date-time
       required:
       - id
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
     GetPeopleRequest:
       type: object
       properties:
         cursor:
           type: string
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
   responses:
     Error:
       description: Error

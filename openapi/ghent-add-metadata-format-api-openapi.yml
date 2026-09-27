@@ -28,17 +28,6 @@ paths:
       - Add Metadata Format
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
     AddMetadataFormatRequest:
       type: object
       properties:
@@ -55,6 +44,17 @@ components:
       - metadata_prefix
       - schema
       - metadata_namespace
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
   responses:
     Error:
       description: Error

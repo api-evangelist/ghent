@@ -114,8 +114,6 @@ components:
           type: string
         dissolutionDate:
           type: string
-    AddProjectRequest:
-      $ref: '#/components/schemas/AddProject'
     Error:
       type: object
       properties:
@@ -127,6 +125,8 @@ components:
       required:
       - code
       - message
+    AddProjectRequest:
+      $ref: '#/components/schemas/AddProject'
   responses:
     Error:
       description: Error

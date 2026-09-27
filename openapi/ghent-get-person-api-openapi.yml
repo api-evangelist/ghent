@@ -32,10 +32,6 @@ paths:
       - Get Person
 components:
   schemas:
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
     Person:
       type: object
       properties:
@@ -123,6 +119,10 @@ components:
           minLength: 1
       required:
       - id
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
   responses:
     Error:
       description: Error

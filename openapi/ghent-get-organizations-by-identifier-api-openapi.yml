@@ -32,17 +32,6 @@ paths:
       - Get Organizations By Identifier
 components:
   schemas:
-    GetOrganizationsByIdentifierRequest:
-      type: object
-      properties:
-        identifier:
-          type: array
-          items:
-            type: string
-            minLength: 1
-            pattern: ^urn:(gismo_id|ugent_id|biblio_id|ugent_memorialis_id):.+
-      required:
-      - identifier
     Organization:
       type: object
       properties:
@@ -70,17 +59,17 @@ components:
           type: array
           items:
             type: string
-    Error:
+    GetOrganizationsByIdentifierRequest:
       type: object
       properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
+        identifier:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            pattern: ^urn:(gismo_id|ugent_id|biblio_id|ugent_memorialis_id):.+
       required:
-      - code
-      - message
+      - identifier
     OrganizationParent:
       type: object
       properties:
@@ -101,6 +90,17 @@ components:
       required:
       - id
       - from
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
     OrganizationListResponse:
       type: object
       required:

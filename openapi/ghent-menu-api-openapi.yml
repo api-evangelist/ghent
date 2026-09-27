@@ -80,30 +80,6 @@ paths:
           description: No menu published for that date at that location
 components:
   schemas:
-    DayMenu:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-        open:
-          type: boolean
-          description: Not a guarantee - some closed days are absent from the output entirely.
-        meals:
-          type: array
-          items:
-            $ref: '#/components/schemas/Meal'
-        vegetables:
-          type: array
-          items:
-            type: string
-        vegetables2:
-          type: array
-          items:
-            $ref: '#/components/schemas/Vegetable'
-        message:
-          type: string
-          description: Optional note about an exceptional closure or menu change.
     Meal:
       type: object
       properties:
@@ -134,6 +110,30 @@ components:
           type: array
           items:
             type: string
+    DayMenu:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        open:
+          type: boolean
+          description: Not a guarantee - some closed days are absent from the output entirely.
+        meals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meal'
+        vegetables:
+          type: array
+          items:
+            type: string
+        vegetables2:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vegetable'
+        message:
+          type: string
+          description: Optional note about an exceptional closure or menu change.
   parameters:
     Endpoint:
       name: endpoint

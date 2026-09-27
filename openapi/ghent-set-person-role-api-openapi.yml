@@ -32,24 +32,6 @@ paths:
       - Set Person Role
 components:
   schemas:
-    SetPersonRoleRequest:
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 1
-        role:
-          type: array
-          items:
-            type: string
-            minLength: 1
-      required:
-      - id
-      - role
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
     Person:
       type: object
       properties:
@@ -129,6 +111,24 @@ components:
           format: date-time
       required:
       - id
+    SetPersonRoleRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+        role:
+          type: array
+          items:
+            type: string
+            minLength: 1
+      required:
+      - id
+      - role
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
   responses:
     Error:
       description: Error

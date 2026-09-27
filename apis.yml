@@ -26,16 +26,24 @@ description: >-
 type: Index
 deliveryModel:
   model: saas
-  open_source: true
-  commercial: false
+  license_evidence:
+    not_product:
+    - ugent-library/alma-go
+    - ugent-library/oai-service
+    - ugent-library/people-service
+    - ugent-library/projects-service
+    - zeuswpi/hydra
+  open_source: unknown
+  commercial: true
   callable_host: true
-  label: Institution-operated endpoints, plus open-source software the library publishes
-  confidence: high
+  label: Hosted service · you call their endpoint
+  confidence: low
   source:
   - openapi
-  - plans
-  generated: '2026-09-01'
-  method: probed
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
+  method: derived
 accessModel:
   pricing: free
   onboarding: none

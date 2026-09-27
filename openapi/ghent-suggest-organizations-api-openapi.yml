@@ -32,6 +32,18 @@ paths:
       - Suggest Organizations
 components:
   schemas:
+    SuggestOrganizationsRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          minimum: 0
+          maximum: 100
+        query:
+          type: string
+          minLength: 1
+      required:
+      - query
     Organization:
       type: object
       properties:
@@ -59,17 +71,6 @@ components:
           type: array
           items:
             type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
     OrganizationParent:
       type: object
       properties:
@@ -90,6 +91,17 @@ components:
       required:
       - id
       - from
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
     OrganizationListResponse:
       type: object
       required:
@@ -99,18 +111,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Organization'
-    SuggestOrganizationsRequest:
-      type: object
-      properties:
-        limit:
-          type: integer
-          minimum: 0
-          maximum: 100
-        query:
-          type: string
-          minLength: 1
-      required:
-      - query
   responses:
     Error:
       description: Error

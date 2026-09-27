@@ -32,10 +32,8 @@ paths:
       - Add Person
 components:
   schemas:
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
+    AddPersonRequest:
+      $ref: '#/components/schemas/Person'
     Person:
       type: object
       properties:
@@ -115,8 +113,10 @@ components:
       required:
       - code
       - message
-    AddPersonRequest:
-      $ref: '#/components/schemas/Person'
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
   responses:
     Error:
       description: Error

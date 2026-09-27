@@ -28,6 +28,17 @@ paths:
       - Add Item
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
     AddItemRequest:
       type: object
       properties:
@@ -41,17 +52,6 @@ components:
             minLength: 1
       required:
       - identifier
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
   responses:
     Error:
       description: Error

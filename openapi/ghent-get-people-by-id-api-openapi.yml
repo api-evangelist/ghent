@@ -32,15 +32,6 @@ paths:
       - Get People By Id
 components:
   schemas:
-    PersonListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Person'
     GetPeopleByIdRequest:
       type: object
       properties:
@@ -51,10 +42,15 @@ components:
             minLength: 1
       required:
       - id
-    StringMap:
+    PersonListResponse:
       type: object
-      additionalProperties:
-        type: string
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
     Person:
       type: object
       properties:
@@ -134,6 +130,10 @@ components:
           format: date-time
       required:
       - id
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
   responses:
     Error:
       description: Error

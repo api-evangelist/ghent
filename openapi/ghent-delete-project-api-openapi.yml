@@ -28,14 +28,6 @@ paths:
       - Delete Project
 components:
   schemas:
-    DeleteProjectRequest:
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 1
-      required:
-      - id
     Error:
       type: object
       properties:
@@ -47,6 +39,14 @@ components:
       required:
       - code
       - message
+    DeleteProjectRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+      required:
+      - id
   responses:
     Error:
       description: Error
