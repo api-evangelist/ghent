@@ -32,6 +32,29 @@ paths:
       - Suggest People
 components:
   schemas:
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    SuggestPeopleRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          minimum: 0
+          maximum: 100
+        query:
+          type: string
+          minLength: 1
+        active:
+          type: array
+          minItems: 0
+          maxItems: 2
+          uniqueItems: true
+          items:
+            type: boolean
+      required:
+      - query
     PersonListResponse:
       type: object
       required:
@@ -41,6 +64,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Person'
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
+    OrganizationMember:
+      type: object
+      properties:
+        id:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+      required:
+      - id
     Person:
       type: object
       properties:
@@ -96,53 +143,6 @@ components:
           type: array
           items:
             type: string
-    SuggestPeopleRequest:
-      type: object
-      properties:
-        limit:
-          type: integer
-          minimum: 0
-          maximum: 100
-        query:
-          type: string
-          minLength: 1
-        active:
-          type: array
-          minItems: 0
-          maxItems: 2
-          uniqueItems: true
-          items:
-            type: boolean
-      required:
-      - query
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
-    OrganizationMember:
-      type: object
-      properties:
-        id:
-          type: string
-        date_created:
-          type: string
-          format: date-time
-        date_updated:
-          type: string
-          format: date-time
-      required:
-      - id
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
   responses:
     Error:
       description: Error

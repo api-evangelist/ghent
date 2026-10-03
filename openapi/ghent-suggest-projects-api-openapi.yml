@@ -32,17 +32,15 @@ paths:
       - Suggest Projects
 components:
   schemas:
-    SuggestProjectsResponse:
-      type: object
-      properties:
-        cursor:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GetProject'
-      required:
-      - data
+    GetProject:
+      allOf:
+      - $ref: '#/components/schemas/Project'
+      - required:
+        - id
+        - type
+        - identifier
+        - created
+        - modified
     Project:
       type: object
       properties:
@@ -123,6 +121,25 @@ components:
           type: string
         dissolutionDate:
           type: string
+    SuggestProjectsResponse:
+      type: object
+      properties:
+        cursor:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetProject'
+      required:
+      - data
+    SuggestProjectsRequest:
+      type: object
+      properties:
+        query:
+          type: string
+          minLength: 0
+      required:
+      - query
     Error:
       type: object
       properties:
@@ -134,23 +151,6 @@ components:
       required:
       - code
       - message
-    SuggestProjectsRequest:
-      type: object
-      properties:
-        query:
-          type: string
-          minLength: 0
-      required:
-      - query
-    GetProject:
-      allOf:
-      - $ref: '#/components/schemas/Project'
-      - required:
-        - id
-        - type
-        - identifier
-        - created
-        - modified
   responses:
     Error:
       description: Error

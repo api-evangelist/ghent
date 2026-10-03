@@ -35,16 +35,15 @@ paths:
       - Get Project
 components:
   schemas:
-    GetProjectRequest:
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 1
-      required:
-      - id
-    GetProjectResponse:
-      $ref: '#/components/schemas/GetProject'
+    GetProject:
+      allOf:
+      - $ref: '#/components/schemas/Project'
+      - required:
+        - id
+        - type
+        - identifier
+        - created
+        - modified
     Project:
       type: object
       properties:
@@ -136,15 +135,16 @@ components:
       required:
       - code
       - message
-    GetProject:
-      allOf:
-      - $ref: '#/components/schemas/Project'
-      - required:
-        - id
-        - type
-        - identifier
-        - created
-        - modified
+    GetProjectResponse:
+      $ref: '#/components/schemas/GetProject'
+    GetProjectRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+      required:
+      - id
   responses:
     Error:
       description: Error

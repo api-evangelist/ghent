@@ -32,6 +32,50 @@ paths:
       - Get People
 components:
   schemas:
+    PersonPagedListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        cursor:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    GetPeopleRequest:
+      type: object
+      properties:
+        cursor:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
+    OrganizationMember:
+      type: object
+      properties:
+        id:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+      required:
+      - id
     Person:
       type: object
       properties:
@@ -87,50 +131,6 @@ components:
           type: array
           items:
             type: string
-    PersonPagedListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        cursor:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Person'
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
-    OrganizationMember:
-      type: object
-      properties:
-        id:
-          type: string
-        date_created:
-          type: string
-          format: date-time
-        date_updated:
-          type: string
-          format: date-time
-      required:
-      - id
-    GetPeopleRequest:
-      type: object
-      properties:
-        cursor:
-          type: string
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
   responses:
     Error:
       description: Error

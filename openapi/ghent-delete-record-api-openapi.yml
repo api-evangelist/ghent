@@ -28,6 +28,17 @@ paths:
       - Delete Record
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
     DeleteRecordRequest:
       type: object
       properties:
@@ -40,17 +51,6 @@ components:
       required:
       - identifier
       - metadata_prefix
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
   responses:
     Error:
       description: Error

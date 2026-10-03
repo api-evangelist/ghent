@@ -28,6 +28,17 @@ paths:
       - Add Record
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
     AddRecordRequest:
       type: object
       properties:
@@ -44,17 +55,6 @@ components:
       - identifier
       - metadata_prefix
       - content
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
   responses:
     Error:
       description: Error

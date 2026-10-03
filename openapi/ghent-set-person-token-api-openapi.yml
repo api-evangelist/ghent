@@ -32,6 +32,50 @@ paths:
       - Set Person Token
 components:
   schemas:
+    SetPersonTokenRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          minLength: 1
+        token:
+          type: string
+          minLength: 1
+      required:
+      - id
+      - type
+      - token
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
+    OrganizationMember:
+      type: object
+      properties:
+        id:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+      required:
+      - id
     Person:
       type: object
       properties:
@@ -87,50 +131,6 @@ components:
           type: array
           items:
             type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
-    OrganizationMember:
-      type: object
-      properties:
-        id:
-          type: string
-        date_created:
-          type: string
-          format: date-time
-        date_updated:
-          type: string
-          format: date-time
-      required:
-      - id
-    SetPersonTokenRequest:
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 1
-        type:
-          type: string
-          minLength: 1
-        token:
-          type: string
-          minLength: 1
-      required:
-      - id
-      - type
-      - token
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
   responses:
     Error:
       description: Error

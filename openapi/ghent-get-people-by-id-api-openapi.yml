@@ -32,6 +32,19 @@ paths:
       - Get People By Id
 components:
   schemas:
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    PersonListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
     GetPeopleByIdRequest:
       type: object
       properties:
@@ -42,15 +55,30 @@ components:
             minLength: 1
       required:
       - id
-    PersonListResponse:
+    Error:
       type: object
-      required:
-      - data
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Person'
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
+    OrganizationMember:
+      type: object
+      properties:
+        id:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+      required:
+      - id
     Person:
       type: object
       properties:
@@ -106,34 +134,6 @@ components:
           type: array
           items:
             type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
-    OrganizationMember:
-      type: object
-      properties:
-        id:
-          type: string
-        date_created:
-          type: string
-          format: date-time
-        date_updated:
-          type: string
-          format: date-time
-      required:
-      - id
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
   responses:
     Error:
       description: Error

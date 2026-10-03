@@ -27,7 +27,25 @@ paths:
       tags:
       - Add Set
 components:
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
     AddSetRequest:
       type: object
       properties:
@@ -42,24 +60,6 @@ components:
       required:
       - set_spec
       - set_name
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
-  responses:
-    Error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

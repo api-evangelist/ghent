@@ -32,6 +32,10 @@ paths:
       - Get People By Identifier
 components:
   schemas:
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
     PersonListResponse:
       type: object
       required:
@@ -41,6 +45,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Person'
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
+    OrganizationMember:
+      type: object
+      properties:
+        id:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+      required:
+      - id
     Person:
       type: object
       properties:
@@ -96,30 +124,6 @@ components:
           type: array
           items:
             type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
-    OrganizationMember:
-      type: object
-      properties:
-        id:
-          type: string
-        date_created:
-          type: string
-          format: date-time
-        date_updated:
-          type: string
-          format: date-time
-      required:
-      - id
     GetPeopleByIdentifierRequest:
       type: object
       properties:
@@ -131,10 +135,6 @@ components:
             pattern: ^urn:(orcid|gismo_id|ugent_id|historic_ugent_id|ugent_barcode|ugent_username|ugent_memorialis_id|biblio_id):.+
       required:
       - identifier
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
   responses:
     Error:
       description: Error
