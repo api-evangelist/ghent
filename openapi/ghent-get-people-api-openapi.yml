@@ -32,37 +32,6 @@ paths:
       - Get People
 components:
   schemas:
-    PersonPagedListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        cursor:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Person'
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
-    GetPeopleRequest:
-      type: object
-      properties:
-        cursor:
-          type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
     OrganizationMember:
       type: object
       properties:
@@ -131,6 +100,37 @@ components:
           type: array
           items:
             type: string
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    PersonPagedListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        cursor:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+    GetPeopleRequest:
+      type: object
+      properties:
+        cursor:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
   responses:
     Error:
       description: Error

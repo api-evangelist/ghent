@@ -32,6 +32,13 @@ paths:
                 $ref: '#/components/schemas/Meta'
 components:
   schemas:
+    Meta:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
     Location:
       type: object
       properties:
@@ -58,10 +65,3 @@ components:
               type: array
               items:
                 type: string
-    Meta:
-      type: object
-      properties:
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Location'

@@ -32,32 +32,6 @@ paths:
       - Set Person Orcid
 components:
   schemas:
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
-    SetPersonOrcidRequest:
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 1
-        orcid:
-          type: string
-      required:
-      - id
-      - orcid
     OrganizationMember:
       type: object
       properties:
@@ -126,6 +100,32 @@ components:
           type: array
           items:
             type: string
+    SetPersonOrcidRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+        orcid:
+          type: string
+      required:
+      - id
+      - orcid
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
   responses:
     Error:
       description: Error

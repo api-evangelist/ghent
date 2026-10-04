@@ -115,15 +115,15 @@ paths:
                 $ref: '#/components/schemas/Allergens'
 components:
   schemas:
-    PricedItem:
+    Salad:
       type: object
       properties:
         name:
           type: string
+        description:
+          type: string
         price:
           type: string
-          description: Price in euros
-          textual.: null
     Allergens:
       type: object
       description: Category name to dish name to allergen list.
@@ -133,6 +133,19 @@ components:
           type: array
           items:
             type: string
+    Sandwich:
+      type: object
+      properties:
+        name:
+          type: string
+        ingredients:
+          type: array
+          items:
+            type: string
+        price_medium:
+          type: string
+        price_small:
+          type: string
     ExtraFood:
       type: object
       properties:
@@ -148,6 +161,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PricedItem'
+    PricedItem:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: string
+          description: Price in euros
+          textual.: null
     WeeklySandwich:
       type: object
       properties:
@@ -165,25 +187,3 @@ components:
           format: date
         vegan:
           type: boolean
-    Salad:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        price:
-          type: string
-    Sandwich:
-      type: object
-      properties:
-        name:
-          type: string
-        ingredients:
-          type: array
-          items:
-            type: string
-        price_medium:
-          type: string
-        price_small:
-          type: string

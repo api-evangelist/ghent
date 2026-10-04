@@ -27,18 +27,14 @@ paths:
       tags:
       - Add Item
 components:
-  schemas:
+  responses:
     Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
     AddItemRequest:
       type: object
       properties:
@@ -52,13 +48,17 @@ components:
             minLength: 1
       required:
       - identifier
-  responses:
     Error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
   securitySchemes:
     apiKey:
       type: apiKey

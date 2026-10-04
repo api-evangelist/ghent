@@ -27,7 +27,22 @@ paths:
       tags:
       - Delete Project
 components:
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    DeleteProjectRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+      required:
+      - id
     Error:
       type: object
       properties:
@@ -39,21 +54,6 @@ components:
       required:
       - code
       - message
-    DeleteProjectRequest:
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 1
-      required:
-      - id
-  responses:
-    Error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

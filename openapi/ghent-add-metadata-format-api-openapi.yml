@@ -27,6 +27,13 @@ paths:
       tags:
       - Add Metadata Format
 components:
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     AddMetadataFormatRequest:
       type: object
@@ -55,13 +62,6 @@ components:
       required:
       - code
       - message
-  responses:
-    Error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

@@ -27,18 +27,14 @@ paths:
       tags:
       - Add Record
 components:
-  schemas:
+  responses:
     Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
     AddRecordRequest:
       type: object
       properties:
@@ -55,13 +51,17 @@ components:
       - identifier
       - metadata_prefix
       - content
-  responses:
     Error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
   securitySchemes:
     apiKey:
       type: apiKey

@@ -32,21 +32,6 @@ paths:
       - Get Person
 components:
   schemas:
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
     GetPersonRequest:
       type: object
       properties:
@@ -123,6 +108,21 @@ components:
           type: array
           items:
             type: string
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
   responses:
     Error:
       description: Error

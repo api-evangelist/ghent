@@ -32,6 +32,33 @@ paths:
       - Add Organization
 components:
   schemas:
+    Organization:
+      type: object
+      properties:
+        id:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        type:
+          type: string
+        acronym:
+          type: string
+        name_dut:
+          type: string
+        name_eng:
+          type: string
+        parent:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationParent'
+        identifier:
+          type: array
+          items:
+            type: string
     OrganizationParent:
       type: object
       properties:
@@ -65,33 +92,6 @@ components:
       required:
       - code
       - message
-    Organization:
-      type: object
-      properties:
-        id:
-          type: string
-        date_created:
-          type: string
-          format: date-time
-        date_updated:
-          type: string
-          format: date-time
-        type:
-          type: string
-        acronym:
-          type: string
-        name_dut:
-          type: string
-        name_eng:
-          type: string
-        parent:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrganizationParent'
-        identifier:
-          type: array
-          items:
-            type: string
   responses:
     Error:
       description: Error

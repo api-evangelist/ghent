@@ -32,30 +32,6 @@ paths:
       - Get People By Identifier
 components:
   schemas:
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
-    PersonListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Person'
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
     OrganizationMember:
       type: object
       properties:
@@ -69,6 +45,17 @@ components:
           format: date-time
       required:
       - id
+    GetPeopleByIdentifierRequest:
+      type: object
+      properties:
+        identifier:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            pattern: ^urn:(orcid|gismo_id|ugent_id|historic_ugent_id|ugent_barcode|ugent_username|ugent_memorialis_id|biblio_id):.+
+      required:
+      - identifier
     Person:
       type: object
       properties:
@@ -124,17 +111,30 @@ components:
           type: array
           items:
             type: string
-    GetPeopleByIdentifierRequest:
+    PersonListResponse:
       type: object
+      required:
+      - data
       properties:
-        identifier:
+        data:
           type: array
           items:
-            type: string
-            minLength: 1
-            pattern: ^urn:(orcid|gismo_id|ugent_id|historic_ugent_id|ugent_barcode|ugent_username|ugent_memorialis_id|biblio_id):.+
+            $ref: '#/components/schemas/Person'
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
       required:
-      - identifier
+      - code
+      - message
   responses:
     Error:
       description: Error

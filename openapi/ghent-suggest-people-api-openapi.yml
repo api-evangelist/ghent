@@ -32,10 +32,6 @@ paths:
       - Suggest People
 components:
   schemas:
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
     SuggestPeopleRequest:
       type: object
       properties:
@@ -55,26 +51,6 @@ components:
             type: boolean
       required:
       - query
-    PersonListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Person'
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
     OrganizationMember:
       type: object
       properties:
@@ -143,6 +119,30 @@ components:
           type: array
           items:
             type: string
+    PersonListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
   responses:
     Error:
       description: Error

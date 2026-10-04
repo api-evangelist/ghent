@@ -32,56 +32,6 @@ paths:
       - Get Organizations By Id
 components:
   schemas:
-    OrganizationParent:
-      type: object
-      properties:
-        id:
-          type: string
-        date_created:
-          type: string
-          format: date-time
-        date_updated:
-          type: string
-          format: date-time
-        from:
-          type: string
-          format: date-time
-        until:
-          type: string
-          format: date-time
-      required:
-      - id
-      - from
-    OrganizationListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Organization'
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
-    GetOrganizationsByIdRequest:
-      type: object
-      properties:
-        id:
-          type: array
-          items:
-            type: string
-            minLength: 1
-      required:
-      - id
     Organization:
       type: object
       properties:
@@ -109,6 +59,56 @@ components:
           type: array
           items:
             type: string
+    OrganizationParent:
+      type: object
+      properties:
+        id:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        from:
+          type: string
+          format: date-time
+        until:
+          type: string
+          format: date-time
+      required:
+      - id
+      - from
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
+    GetOrganizationsByIdRequest:
+      type: object
+      properties:
+        id:
+          type: array
+          items:
+            type: string
+            minLength: 1
+      required:
+      - id
+    OrganizationListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization'
   responses:
     Error:
       description: Error

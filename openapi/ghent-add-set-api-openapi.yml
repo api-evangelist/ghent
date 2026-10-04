@@ -35,17 +35,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
     AddSetRequest:
       type: object
       properties:
@@ -60,6 +49,17 @@ components:
       required:
       - set_spec
       - set_name
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
   securitySchemes:
     apiKey:
       type: apiKey
