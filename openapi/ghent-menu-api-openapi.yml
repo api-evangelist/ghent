@@ -79,16 +79,19 @@ paths:
         '404':
           description: No menu published for that date at that location
 components:
-  parameters:
-    Endpoint:
-      name: endpoint
-      in: path
-      required: true
-      description: Location slug from /meta.json, for example en, nl-sterre or nl-debrug.
-      schema:
-        type: string
-      example: nl-sterre
   schemas:
+    Vegetable:
+      type: object
+      properties:
+        kind:
+          type: string
+          description: Currently meat, vegetarian or vegan. Clients must tolerate new values.
+        name:
+          type: string
+        allergens:
+          type: array
+          items:
+            type: string
     Meal:
       type: object
       properties:
@@ -131,15 +134,12 @@ components:
         message:
           type: string
           description: Optional note about an exceptional closure or menu change.
-    Vegetable:
-      type: object
-      properties:
-        kind:
-          type: string
-          description: Currently meat, vegetarian or vegan. Clients must tolerate new values.
-        name:
-          type: string
-        allergens:
-          type: array
-          items:
-            type: string
+  parameters:
+    Endpoint:
+      name: endpoint
+      in: path
+      required: true
+      description: Location slug from /meta.json, for example en, nl-sterre or nl-debrug.
+      schema:
+        type: string
+      example: nl-sterre

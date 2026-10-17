@@ -32,6 +32,28 @@ paths:
       - Suggest People
 components:
   schemas:
+    OrganizationMember:
+      type: object
+      properties:
+        id:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+      required:
+      - id
+    PersonListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
     SuggestPeopleRequest:
       type: object
       properties:
@@ -51,19 +73,21 @@ components:
             type: boolean
       required:
       - query
-    OrganizationMember:
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    Error:
       type: object
       properties:
-        id:
+        code:
+          type: integer
+          format: int64
+        message:
           type: string
-        date_created:
-          type: string
-          format: date-time
-        date_updated:
-          type: string
-          format: date-time
       required:
-      - id
+      - code
+      - message
     Person:
       type: object
       properties:
@@ -119,30 +143,6 @@ components:
           type: array
           items:
             type: string
-    PersonListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Person'
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
   responses:
     Error:
       description: Error

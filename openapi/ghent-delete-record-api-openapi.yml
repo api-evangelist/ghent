@@ -27,18 +27,14 @@ paths:
       tags:
       - Delete Record
 components:
-  schemas:
+  responses:
     Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
     DeleteRecordRequest:
       type: object
       properties:
@@ -51,13 +47,17 @@ components:
       required:
       - identifier
       - metadata_prefix
-  responses:
     Error:
-      description: Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
   securitySchemes:
     apiKey:
       type: apiKey

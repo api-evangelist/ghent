@@ -45,6 +45,37 @@ components:
           format: date-time
       required:
       - id
+    PersonPagedListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        cursor:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+    GetPeopleRequest:
+      type: object
+      properties:
+        cursor:
+          type: string
+    StringMap:
+      type: object
+      additionalProperties:
+        type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
     Person:
       type: object
       properties:
@@ -100,37 +131,6 @@ components:
           type: array
           items:
             type: string
-    StringMap:
-      type: object
-      additionalProperties:
-        type: string
-    PersonPagedListResponse:
-      type: object
-      required:
-      - data
-      properties:
-        cursor:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Person'
-    GetPeopleRequest:
-      type: object
-      properties:
-        cursor:
-          type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
   responses:
     Error:
       description: Error

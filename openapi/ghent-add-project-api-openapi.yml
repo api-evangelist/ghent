@@ -28,12 +28,25 @@ paths:
       - Add Project
 components:
   schemas:
+    AddProjectRequest:
+      $ref: '#/components/schemas/AddProject'
     AddProject:
       allOf:
       - $ref: '#/components/schemas/Project'
       - required:
         - type
         - identifier
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        message:
+          type: string
+      required:
+      - code
+      - message
     Project:
       type: object
       properties:
@@ -114,19 +127,6 @@ components:
           type: string
         dissolutionDate:
           type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int64
-        message:
-          type: string
-      required:
-      - code
-      - message
-    AddProjectRequest:
-      $ref: '#/components/schemas/AddProject'
   responses:
     Error:
       description: Error
